@@ -29,6 +29,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'simple_form', '>= 3.1.0.rc2'
+gem 'state_machine'
 
 group :test do 
 	gem 'shoulda'

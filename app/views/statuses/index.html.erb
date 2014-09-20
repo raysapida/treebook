@@ -7,7 +7,7 @@
 <% @statuses.each do |status| %>
 <div class="status row">
 	<div class="col-md-1">
-		<%= image_tag status.user.gravatar_url%>
+		<%= link_to image_tag(status.user.gravatar_url), profile_path(status.user)%>
 	</div>
 	<div class="col-md-7">
 		<strong><%= status.user.full_name %></strong>
