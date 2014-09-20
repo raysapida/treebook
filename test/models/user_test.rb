@@ -54,6 +54,7 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 	
+	#tutorial states that this test should fail because friends should be pending_friends but it still passes
 	test "that creating friendships on a user works" do
     users(:jason).friends << users(:mike)
     users(:jason).friends.reload
