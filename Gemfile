@@ -33,4 +33,5 @@ gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 
 group :test do 
 	gem 'shoulda'
+	gem 'factory_girl_rails'
 end
