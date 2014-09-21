@@ -44,7 +44,7 @@ class UserFriendshipsController < ApplicationController
 	
 	def edit 
 		@friend = User.where(profile_name: params[:id]).first
-    @user_friendship = current_user.user_friendships.where(friend_id: @friend.id).first
+    @user_friendship = current_user.user_friendships.where(friend_id: @friend.id).first.decorate
 	end
 	
 	def destroy
