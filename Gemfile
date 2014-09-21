@@ -31,6 +31,7 @@ gem 'devise'
 gem 'simple_form', '>= 3.1.0.rc2'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'draper'
+gem 'js-routes'
 
 group :test do 
 	gem 'shoulda'
