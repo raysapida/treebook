@@ -8,19 +8,14 @@ class User < ActiveRecord::Base
 	has_many :user_friendships
 	has_many :friends, -> { where(user_friendships: { state: "accepted"}) }, through: :user_friendships
 	
-	has_many :pending_friends, 
-              -> { where user_friendships: { state: "pending" } }, 
-                 through: :user_friendships,
-                 source: :friend
-	
 	has_many :pending_user_friendships, 
               -> { where user_friendships: { state: "pending" } }, 
                  class_name: 'UserFriendship',
 									foreign_key: :user_id
 	
-	has_many :requested_friends, 
-              -> { where user_friendships: { state: "requested" } }, 
-                 through: :user_friendships,
+	has_many :pending_friends, 
+              -> { where user_friendships: { state: "pending" } }, 
+                 through: :pending_user_friendships,
                  source: :friend
 	
 	has_many :requested_user_friendships, 
@@ -28,9 +23,9 @@ class User < ActiveRecord::Base
                  class_name: 'UserFriendship',
 									foreign_key: :user_id
 	
-	has_many :blocked_friends, 
-              -> { where user_friendships: { state: "blocked" } }, 
-                 through: :user_friendships,
+	has_many :requested_friends, 
+              -> { where user_friendships: { state: "requested" } }, 
+                 through: :requested_user_friendships,
                  source: :friend
 	
 	has_many :blocked_user_friendships, 
@@ -38,11 +33,20 @@ class User < ActiveRecord::Base
                  class_name: 'UserFriendship',
 									foreign_key: :user_id
 	
+	has_many :blocked_friends, 
+              -> { where user_friendships: { state: "blocked" } }, 
+                 through: :blocked_user_friendships,
+                 source: :friend
+	
 	has_many :accepted_user_friendships, 
               -> { where user_friendships: { state: "accepted" } }, 
                  class_name: 'UserFriendship',
 									foreign_key: :user_id
 	
+	has_many :accepted_friends, 
+              -> { where user_friendships: { state: "accepted" } }, 
+                 through: :accepted_user_friendships,
+                 source: :friend
 	
 	validates :first_name, presence: true
 	
