@@ -13,13 +13,14 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Windows specific gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
-# gems added during the tutorial
+# gems added during the tutorials
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'simple_form', '>= 3.1.0.rc2'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'draper'
 gem 'js-routes'
+gem 'paperclip'
 
 group :development do
   gem 'thin'
