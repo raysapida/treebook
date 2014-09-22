@@ -73,9 +73,9 @@ class UserFriendshipsControllerTest < ActionController::TestCase
           assert_response :success
         end
 
-        should "not display pending or active friend's names" do
-          assert_no_match /Blocked/, response.body
-          assert_no_match /Active/, response.body
+        should "display pending friend's names" do
+          assert_select "div#friend-list", {count: 1, html: /#{@pending_friendship.friend.full_name}/ }
+          assert_select "div#friend-list", {count: 0, html: /#{@blocked_friendship.friend.full_name}/ }
         end
 
         should "display blocked friends" do
@@ -93,8 +93,10 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         end
 
         should "not display pending or active friend's names" do
-          assert_no_match /Blocked/, response.body
-          assert_no_match /Active/, response.body
+          assert_select "div#friend-list", {count: 1, html: /#{@requested_friendship.friend.full_name}/ }
+          assert_select "div#friend-list", {count: 0, html: /#{@blocked_friendship.friend.full_name}/ }
+          assert_select "div#friend-list", {count: 0, html: /#{@pending_friendship.friend.full_name}/ }
+          assert_select "div#friend-list", {count: 0, html: /#{@accepted_friendship.friend.full_name}/ }
         end
 
         should "display requested friends" do
@@ -112,8 +114,8 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         end
 
         should "not display pending or active friend's names" do
-          assert_no_match /Blocked/, response.body
-          assert_no_match /Requested/, response.body
+          assert_select "div#friend-list", {count: 1, html: /#{@accepted_friendship.friend.full_name}/ }
+          assert_select "div#friend-list", {count: 0, html: /#{@blocked_friendship.friend.full_name}/ }
         end
 
         should "display requested friends" do
