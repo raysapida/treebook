@@ -38,6 +38,11 @@ class User < ActiveRecord::Base
                  class_name: 'UserFriendship',
 									foreign_key: :user_id
 	
+	has_many :accepted_user_friendships, 
+              -> { where user_friendships: { state: "accepted" } }, 
+                 class_name: 'UserFriendship',
+									foreign_key: :user_id
+	
 	
 	validates :first_name, presence: true
 	
