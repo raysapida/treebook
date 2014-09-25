@@ -5,7 +5,7 @@ class StatusesController < ApplicationController
   # GET /statuses
   # GET /statuses.json
   def index
-    @statuses = Status.all
+    @statuses = Status.order('created_at desc').all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -64,7 +64,7 @@ class StatusesController < ApplicationController
       params[:status].delete(:user_id) 
     end
     respond_to do |format|
-      if @status.update(status_params)
+      if @status.update(status_params) 
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { render :show, status: :ok, location: @status }
       else
@@ -93,6 +93,6 @@ class StatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:content, :user_id, :attachment,  document_attributes: [:attachment] ) if params[:status]
+      params.require(:status).permit(:content, :user_id, :attachment,  document_attributes: [:attachment, :remove_attachment] ) if params[:status]
     end
 end

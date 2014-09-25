@@ -13,6 +13,15 @@
   <% end %>
 		<%= f.input :content %>
 		<%= f.fields_for :document do |document_fields| %>
+			<% if document_fields.object.attachment? %>
+				<div class="control-group">
+					<label class="control-label">Current attachment</label>
+					<div class="controls">
+						<%= link_to document_fields.object.attachment_file_name, document_fields.object.attachment.url %>
+					</div>
+				</div>
+			<%= document_fields.input :remove_attachment, as: :boolean, label: "Remove Attachments?" %>
+			<% end %>
 			<%= document_fields.input :attachment, as: :file %>
 		<% end %>
 
