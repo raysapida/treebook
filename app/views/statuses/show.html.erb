@@ -10,5 +10,11 @@
   <%= @status.content %>
 </p>
 
+<% if @status.document && @status.document.attachment? %>
+	<span class="label label-info">Attachment</span>
+	<%= link_to @status.document.attachment_file_name, @status.document.attachment.url %>
+	<hr />
+<% end %>
+
 <%= link_to 'Edit', edit_status_path(@status) %> |
 <%= link_to 'Back', statuses_path %>

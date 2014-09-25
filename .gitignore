@@ -14,3 +14,5 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/config/secrets.yml
+/public/system/documents/attachments/000/000/004/original/any.png
