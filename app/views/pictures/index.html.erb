@@ -5,20 +5,20 @@
 	<% end %>
 <% end %>
 
-<ul class="thumbnails">
+<div class="container">
 <% @pictures.each do |picture| %>
-	<li>
+	<div class="col-md-3">
 		<div class="thumbnail">
 			<%= link_to image_tag(picture.asset.url(:small)), album_picture_path(@user, @album, picture) %><br />
 			<div class="caption">
 				<% if picture.caption? %><%= picture.caption %><br /><% end %>
 				<%= link_to "View full size", album_picture_path(@user, @album, picture) %>
 				<% if can_edit_picture?(picture) %>
-					<%= link_to "Edit", edit_album_picture_path(@album, picture) %>
-					<%= link_to "Delete", album_picture_path(@album, picture), method: :delete, data: { confirm: "Are you sure?" } %>
+					| <%= link_to "Edit", edit_album_picture_path(@album, picture) %>
+					| <%= link_to "Delete", album_picture_path(@album, picture), method: :delete, data: { confirm: "Are you sure?" } %>
 				<% end %>
 			</div>
 		</div>
-	</li>
+	</div>
 <% end %>
-</ul>
+</div>

@@ -7,4 +7,8 @@ class Picture < ActiveRecord::Base
 	}
 	validates_attachment_content_type :asset, :content_type => /\Aimage\/.*\Z/
 	# attr_accessible :caption, :description
+	
+	def to_s 
+		caption? ? caption : "Picture"
+	end
 end
