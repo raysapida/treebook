@@ -3,6 +3,7 @@ class PicturesController < ApplicationController
 	before_filter :find_user
 	before_filter :find_album
 	before_filter :find_picture, only: [:edit, :update, :show, :destroy]
+	before_filter :ensure_proper_user, only: [:create, :new, :update, :edit, :destroy]
 	before_filter :add_breadcrumbs
 
 	
@@ -33,7 +34,12 @@ class PicturesController < ApplicationController
 
   # GET /pictures/new
   def new
-    @picture = Picture.new
+    @picture = @album.pictures.new
+		
+		respond_to do |format| 
+			format.html
+			format.json { render json: @pictures}
+		end
   end
 
   # GET /pictures/1/edit
@@ -45,7 +51,6 @@ class PicturesController < ApplicationController
   # POST /pictures.json
   def create
     @picture = @album.pictures.new(picture_params)
-		@picture.user = current_user
 
     respond_to do |format|
       if @picture.save
@@ -87,6 +92,13 @@ class PicturesController < ApplicationController
 	end
 
   private
+		def ensure_proper_user
+    	if current_user != @user
+      	flash[:error] = "You don't have permission to do that."
+      	redirect_to album_pictures_path
+    	end
+  	end
+		
 		def add_breadcrumbs
 			add_breadcrumb @user.first_name, profile_path(@user)
 			add_breadcrumb "Albums", albums_path
@@ -102,7 +114,11 @@ class PicturesController < ApplicationController
     # end
 	
 		def find_album 
-			@album = @user.albums.find(params[:album_id])
+			if signed_in? && current_user.profile_name == params[:profile_name]
+				@album = current_user.albums.find(params[:album_id])
+			else
+				@album = @user.albums.find(params[:album_id])
+			end
 		end
 	
 		def find_picture 
