@@ -16,6 +16,19 @@ class UserFriendshipDecorator < Draper::Decorator
 		end
 	end
 	
+	def update_action_verbiage
+    case model.state
+    when 'pending'
+      'Delete'
+    when 'requested'
+      'Accept'
+    when 'accepted'
+      'Update'
+    when 'blocked'
+      'Unblock'
+    end
+  end
+	
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:
   #

@@ -11,10 +11,10 @@ class UserFriendshipsControllerTest < ActionController::TestCase
 		
 		context "when logged in" do
       setup do
-        @friendship1 = create(:pending_user_friendship, user: users(:jason), friend: create(:user, first_name: 'Pending', last_name: 'Friend'))
-        @friendship2 = create(:accepted_user_friendship, user: users(:jason), friend: create(:user, first_name: 'Active', last_name: 'Friend'))
-      	@friendship3 = create(:requested_user_friendship, user: users(:jason), friend: create(:user, first_name: 'Requested', last_name: 'Friend'))
-				@friendship4 = user_friendships(:blocked_by_jason)
+        @pending_friendship   = create(:pending_user_friendship, user: users(:jason), friend: create(:user, first_name: 'Pending', last_name: 'Friend'))
+        @accepted_friendship  = create(:accepted_user_friendship, user: users(:jason), friend: create(:user, first_name: 'Active', last_name: 'Friend'))
+        @requested_friendship = create(:requested_user_friendship, user: users(:jason), friend: create(:user, first_name: 'Requested', last_name: 'Friend'))
+        @blocked_friendship   = user_friendships(:blocked_by_jason)
 				
         sign_in users(:jason)
         get :index
@@ -34,14 +34,14 @@ class UserFriendshipsControllerTest < ActionController::TestCase
       end
 			
 			should "display pending information on a pending friendship" do
-        assert_select "#user_friendship_#{@friendship1.id}" do
-          assert_select "em", "Friendship is pending."
+        assert_select "#user_friendship_#{@pending_friendship.id}" do
+          assert_select "em", "Friendship is pending"
         end
       end
 			
-			should "display date information on an accepted friendship" do
-        assert_select "#user_friendship_#{@friendship2.id}" do
-          assert_select "em", "Friendship started #{@friendship2.updated_at}."
+			should "display accepted information on an accepted friendship" do
+        assert_select "#user_friendship_#{@accepted_friendship.id}" do
+          assert_select "em", "Friendship is accepted"
         end
       end
 			
@@ -64,7 +64,7 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         end
       end
 			
-			 context "pending friendships" do
+			context "pending friendships" do
         setup do
           get :index, list: 'pending'
         end
