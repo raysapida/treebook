@@ -1,0 +1,13 @@
+<%= page_header do %>
+	<h1>Viewing Picture</h1>
+<% end %>
+
+<%= image_tag(@picture.asset.url(:large), alt: @picture.caption, class: "img-polaroid") %>
+
+<br />
+
+<h3><%= @picture.caption %></h3>
+<p><%= @picture.description %></p>
+
+<%= link_to 'Edit', edit_album_picture_path(@album, @picture) %> |
+<%= link_to 'Album', album_pictures_path(@album) %>

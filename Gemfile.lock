@@ -181,7 +181,7 @@ DEPENDENCIES
   jquery-rails
   js-routes
   log_buddy
-  paperclip
+  paperclip (>= 3)
   pg
   rails (= 4.1.5)
   sass-rails (~> 4.0.3)
