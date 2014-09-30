@@ -60,18 +60,26 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1.json
   def update
 		@status = current_user.statuses.find(params[:id])
-		if params[:status] && params[:status].has_key?(:user_id)
-      params[:status].delete(:user_id) 
-    end
+		@document = @status.document 
+		
+		@status.transaction do 
+			@status.update_attributes(status_params)
+			@document.update_attributes(document_params) if @document
+			raise ActiveRecord::Rollback unless @status.valid? && @document.try(:valid?)
+		end
+		
     respond_to do |format|
-      if @status.update(status_params) 
-        format.html { redirect_to @status, notice: 'Status was successfully updated.' }
-        format.json { render :show, status: :ok, location: @status }
-      else
-        format.html { render :edit }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
-      end
+			format.html { redirect_to @status, notice: 'Status was successfully updated.' }
+			format.json { render :show, status: :ok, location: @status }
     end
+	rescue ActiveRecord::Rollback 
+		respond_to do |format|
+			format.html  do 
+				flash.now[:error] = "Update failed."
+				render action: "edit" 
+			end
+			format.json { render json: @status.errors, status: :unprocessable_entity }
+		end
   end
 
   # DELETE /statuses/1
@@ -93,6 +101,10 @@ class StatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:content, :user_id, :attachment,  document_attributes: [:attachment, :remove_attachment] ) if params[:status]
+      params.require(:status).permit(:content, :attachment,  document_attributes: [:attachment, :remove_attachment] ) if params[:status]
     end
+	
+		def document_params 
+			params.permit(document_attributes: :attachment)
+		end
 end
