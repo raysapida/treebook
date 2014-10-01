@@ -1,7 +1,7 @@
 class AlbumsController < ApplicationController
 	before_filter :authenticate_user!, only: [:create, :new, :update, :edit, :destroy]
 	before_filter :find_user
-  before_action :find_album, only: [:show, :edit, :update, :destroy]
+  before_action :find_album, only: [:edit, :update, :destroy]
 	before_filter :ensure_proper_user, only: [:create, :new, :update, :edit, :destroy]
 	before_filter :add_breadcrumbs
 
@@ -15,6 +15,7 @@ class AlbumsController < ApplicationController
   # GET /albums/1
   # GET /albums/1.json
   def show
+		redirect_to album_pictures_path(params[:id])
   end
 
   # GET /albums/new
@@ -48,7 +49,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.html { redirect_to @album, notice: 'Album was successfully updated.' }
+        format.html { redirect_to album_pictures_path(@album), notice: 'Album was successfully updated.' }
         format.json { render :show, status: :ok, location: @album }
       else
         format.html { render :edit }
