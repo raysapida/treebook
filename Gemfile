@@ -25,6 +25,7 @@ gem "paperclip", ">=3"
 gem 'bootstrap-sass-extras' 
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
+gem 'high_voltage', '~> 2.2.1'
 
 group :development do
   gem 'thin'

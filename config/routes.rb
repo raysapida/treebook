@@ -34,4 +34,5 @@ Rails.application.routes.draw do
 	
 	get '/:id', to: 'profiles#show', as: :profile
 	
+	get 'pages/about' => 'high_voltage/pages#show', id: 'about'
 end
