@@ -1,6 +1,9 @@
-<h1>Editing album</h1>
+<%= page_header do %>
+	<h1>Editing album</h1>
+<% end %>
 
 <%= render 'form' %>
 
+<br>
 <%= link_to 'Show', @album %> |
 <%= link_to 'Back', albums_path %>

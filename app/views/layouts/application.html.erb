@@ -7,21 +7,21 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<nav class="navbar navbar-default" role="navigation">
+	<nav class="navbar navbar-default navbar-static-top " role="navigation">
 		<div class="container-fluid">
 			<% if user_signed_in? %>
 				<%= link_to "Site Name", activities_path, class: "navbar-brand" %>					
 			<% else %>
-				<%= link_to "Site Name", root_path, class: "brand" %>
+				<%= link_to "Site Name", root_path, class: "navbar-brand" %>
 			<% end %>
 			<div class="navbar">
-				<ul class="nav nav-pills pull-left">
+				<ul class="nav nav-pills navbar-left">
 					<li><%= link_to "All Statuses", statuses_path %> </li>
 					<% if user_signed_in? %>
 						<li id="activity-feed"><%= link_to "Activity Feed", activities_path %></li>
 					<% end %>
 				</ul>
-				<ul class="nav nav-pills pull-right">
+				<ul class="nav nav-pills navbar-right">
 					<% if user_signed_in?%>
 						<li><%= link_to 'Albums', albums_path(current_user) %></li>
 						<li><%= link_to 'Friends', user_friendships_path %></li>
@@ -52,7 +52,7 @@
 
 <script id="activities-template" type="text/x-handlebars-template">
 	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-		Activity Feed ({{count}})
+		Activity Feed <span class="badge">{{count}}</span>
 	</button>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 		{{#each activities}}

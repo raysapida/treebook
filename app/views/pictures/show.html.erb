@@ -9,5 +9,5 @@
 <h3><%= @picture.caption %></h3>
 <p><%= @picture.description %></p>
 
-<%= link_to 'Edit', edit_album_picture_path(@album, @picture) %> |
-<%= link_to 'Album', album_pictures_path(@album) %>
+<%= link_to 'Edit', edit_album_picture_path(@album, @picture), class: "btn btn-default btn-group" %>
+<%= link_to 'Album', album_pictures_path(@album), class: "btn btn-default btn-group"  %>
