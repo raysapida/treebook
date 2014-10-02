@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
 															}
 	has_many :albums
 	has_many :pictures
+	has_many :activities
 	
 	def full_name 
 		first_name + " " + last_name
