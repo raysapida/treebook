@@ -24,10 +24,17 @@ Rails.application.routes.draw do
 	
   resources :statuses
 	get 'feed', to: 'statuses#index', as: :feed
-
-	# root 'statuses#index'
 	
-	root :to => 'high_voltage/pages#show', :id => 'home'
+	authenticated :user do
+  	root :to => "statuses#index"
+	end
+	unauthenticated :user do
+  	devise_scope :user do 
+    	get "/" => "devise/sessions#new"
+  	end
+	end
+	
+	# root :to => 'high_voltage/pages#show', :id => 'home'
 	
 	scope ":profile_name" do
 		resources :albums do 
