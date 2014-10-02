@@ -1,0 +1,4 @@
+<p>Updated a picture.</p>
+<% if activity.targetable %>
+<%= image_tag activity.targetable.asset.url(:thumb), class: '' %>
+<% end %>

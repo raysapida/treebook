@@ -13,6 +13,9 @@
 			<div class="navbar">
 				<ul class="nav pull-left">
 					<li><%= link_to "All Statuses", statuses_path %> </li>
+					<% if user_signed_in? %>
+						<li><%= link_to "Activity Feed", activities_path %></li>
+					<% end %>
 				</ul>
 				<ul class="nav nav-pills pull-right">
 					<% if user_signed_in?%>

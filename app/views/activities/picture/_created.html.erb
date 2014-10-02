@@ -1,0 +1,4 @@
+<p>Posted a picture.</p>
+<% if activity.targetable %>
+<%= link_to image_tag(activity.targetable.asset.url(:thumb), class: ''), album_picture_path(activity.user.profile_name, activity.targetable.album_id, activity.targetable_id) %>
+<% end %>
