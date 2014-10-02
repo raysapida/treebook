@@ -9,7 +9,11 @@
 <body>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Site Name</a>
+			<% if user_signed_in? %>
+				<%= link_to "Site Name", activities_path, class: "navbar-brand" %>					
+			<% else %>
+				<%= link_to "Site Name", root_path, class: "brand" %>
+			<% end %>
 			<div class="navbar">
 				<ul class="nav pull-left">
 					<li><%= link_to "All Statuses", statuses_path %> </li>

@@ -23,6 +23,8 @@ gem 'js-routes'
 gem "paperclip", ">=3"
 #added this for breadcrumbs helper instead of twitter-bootstrap-rails
 gem 'bootstrap-sass-extras' 
+gem 'will_paginate', '~> 3.0'
+gem 'bootstrap-will_paginate'
 
 group :development do
   gem 'thin'
