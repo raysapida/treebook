@@ -15,10 +15,10 @@
 				<%= link_to "Site Name", root_path, class: "brand" %>
 			<% end %>
 			<div class="navbar">
-				<ul class="nav pull-left">
+				<ul class="nav nav-pills pull-left">
 					<li><%= link_to "All Statuses", statuses_path %> </li>
 					<% if user_signed_in? %>
-						<li><%= link_to "Activity Feed", activities_path %></li>
+						<li id="activity-feed"><%= link_to "Activity Feed", activities_path %></li>
 					<% end %>
 				</ul>
 				<ul class="nav nav-pills pull-right">
@@ -48,4 +48,18 @@
 		<%= yield %>
 	</div>
 </body>
+
+<script id="activities-template" type="text/x-handlebars-template">
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+		Activity Feed ({{count}})
+	</button>
+	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		{{#each activities}}
+			{{activityLink}}
+		{{/each}}
+	<li role="presentation" class="divider"></li>
+	<li><a href="{{activityFeedLink}}">Activity Feed</a></li>
+	</ul>
+</script>	
+	
 </html>
