@@ -252,22 +252,39 @@ class UserFriendshipsControllerTest < ActionController::TestCase
         @user_friendship = create(:pending_user_friendship, user: users(:jason), friend: @friend)
 				create(:pending_user_friendship, friend: users(:jason), user: @friend)
         sign_in users(:jason)
-        put :accept, id: @user_friendship
-        @user_friendship.reload
       end
 			
+			# this method was suppose to make the code more DRY but I wasn't able to call it within the tests below
+			def do_put 
+				put :accept, id: @user_friendship
+        @user_friendship.reload
+			end
+			
 			should "assign a user_friendship" do
+				put :accept, id: @user_friendship
+        @user_friendship.reload
         assert assigns(:user_friendship)
         assert_equal @user_friendship, assigns(:user_friendship)
       end
 			
 			should "update the state to accepted" do
+				put :accept, id: @user_friendship
+        @user_friendship.reload
         assert_equal 'accepted', @user_friendship.state
       end
 			
 			should "have a flash success message" do
+				put :accept, id: @user_friendship
+        @user_friendship.reload
         assert_equal "You are now friends with #{@user_friendship.friend.first_name}", flash[:success]
       end
+			
+			should "create activity" do 
+				assert_difference "Activity.count" do 
+					put :accept, id: @user_friendship
+        	@user_friendship.reload
+				end
+			end
 		end
 	end
 	
