@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "2.1.3"
 # original gems
 gem 'rails', '4.1.5'
 gem 'sass-rails', '~> 4.0.3'
@@ -44,3 +44,12 @@ end
 group :production do
 	gem "pg"
 end
+
+gem "foreman"
+group :production, :staging do
+  gem "rails_12factor"
+  gem "rails_stdout_logging"
+  gem "rails_serve_static_assets"
+end
+
+gem 'unicorn'
