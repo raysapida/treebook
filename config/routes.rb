@@ -25,8 +25,14 @@ Rails.application.routes.draw do
   resources :statuses
 	get 'feed', to: 'statuses#index', as: :feed
 	
-	
-  root :to => "statuses#index"
+	authenticated :user do
+  	root :to => "statuses#index"
+	end
+	unauthenticated :user do
+  	devise_scope :user do 
+    	get "/" => "devise/sessions#new"
+  	end
+	end
 	
 	# root :to => 'high_voltage/pages#show', :id => 'home'
 	
@@ -40,4 +46,3 @@ Rails.application.routes.draw do
 	
 	get 'pages/about' => 'high_voltage/pages#show', id: 'about'
 end
-
