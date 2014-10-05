@@ -52,4 +52,4 @@ group :production, :staging do
   gem "rails_serve_static_assets"
 end
 
-gem 'unicorn'
+
