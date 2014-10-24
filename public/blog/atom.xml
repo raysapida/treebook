@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>BLOG_NAME</title>
+ <link href="YOUR_URL/atom.xml" rel="self"/>
+ <link href="YOUR_URL"/>
+ <updated>2014-10-18T04:24:54+00:00</updated>
+ <id>BLOG_URL</id>
+ <author>
+   <name>BLOG_NAME</name>
+ </author>
+
+ 
+ <entry>
+   <title>Welcome to Bloggy</title>
+   <link href="YOUR_URL/a-test-post.html"/>
+   <updated>2014-01-11T00:00:00+00:00</updated>
+   <id>BLOG_URL/a-test-post</id>
+   <content type="html">&lt;p&gt;Bloggy was born when &lt;a href=&quot;http://zbruhnke.com&quot;&gt;Zach&lt;/a&gt; was bored while his girlfriend and her sister were talking and watching the voice.&lt;/p&gt;
+
+&lt;p&gt;So this gem was created to generate a blog inside my rails application for a blog post I wrote while working at &lt;a href=&quot;http://engineyard.com&quot;&gt;Engine Yard&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Gem Updated 1/11/2014 with improvements for newer version of Jekyll and rake generate fix&lt;/p&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>
