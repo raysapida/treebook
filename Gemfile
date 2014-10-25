@@ -5,8 +5,8 @@ gem 'rails', '4.2.0.beta2'
 gem 'sass-rails', '>= 5.0.0.beta1'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
-gem 'turbolinks'
+gem 'jquery-rails', '~> 3.1.2'
+gem 'turbolinks', '~> 2.4.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
@@ -14,43 +14,43 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 #gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 # gems added during the tutorials
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'devise', '~> 3.4.0'
 gem 'simple_form', '>= 3.1.0.rc2'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
-gem 'draper'
-gem 'js-routes'
+gem 'draper', '~> 1.4.0'
+gem 'js-routes', '~> 0.9.9'
 gem "paperclip", ">=3"
 #added this for breadcrumbs helper instead of twitter-bootstrap-rails
-gem 'bootstrap-sass-extras' 
+gem 'bootstrap-sass-extras', '~> 0.0.2'
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 gem 'high_voltage', '~> 2.2.1'
-gem 'bloggy'
+gem 'bloggy', '~> 0.3'
 
 group :development do
-  gem 'thin'
+  gem 'thin', '~> 1.6.3'
 end
 
 group :test do 
-	gem 'shoulda'
-	gem 'factory_girl_rails'
+	gem 'shoulda', '~> 3.5.0'
+	gem 'factory_girl_rails', '~> 4.5.0'
 end
 
 group :development, :test do
-	gem 'sqlite3'
-  gem 'log_buddy'
+	gem 'sqlite3', '~> 1.3.9'
+  gem 'log_buddy', '~> 0.7.0'
 end
 
 group :production do
-	gem "pg"
+	gem 'pg', '~> 0.17.1'
 end
 
 gem "foreman"
 group :production, :staging do
-  gem "rails_12factor"
-  gem "rails_stdout_logging"
-  gem "rails_serve_static_assets"
+  gem 'rails_12factor', '~> 0.0.3'
+  gem 'rails_stdout_logging', '~> 0.0.3'
+  gem 'rails_serve_static_assets', '~> 0.0.2'
 end
 
-gem 'unicorn'
+gem 'unicorn', '~> 4.8.3'
