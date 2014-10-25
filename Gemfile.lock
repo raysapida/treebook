@@ -108,7 +108,6 @@ GEM
       request_store (~> 1.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    eventmachine (1.0.3-x86-mingw32)
     execjs (2.2.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -296,7 +295,7 @@ DEPENDENCIES
   bootstrap-sass-extras
   bootstrap-will_paginate
   coffee-rails (~> 4.0.0)
-  devise
+  devise (~> 3.4.0)
   draper
   factory_girl_rails
   foreman

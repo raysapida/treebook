@@ -15,7 +15,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # gems added during the tutorials
 gem 'bootstrap-sass'
-gem 'devise'
+gem 'devise', '~> 3.4.0'
 gem 'simple_form', '>= 3.1.0.rc2'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'draper'
