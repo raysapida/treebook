@@ -40,6 +40,7 @@ end
 group :development, :test do
 	gem 'sqlite3', '~> 1.3.9'
   gem 'log_buddy', '~> 0.7.0'
+	gem 'hirb', '~> 0.7.2'
 end
 
 group :production do
