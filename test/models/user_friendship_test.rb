@@ -20,7 +20,8 @@ class UserFriendshipTest < ActiveSupport::TestCase
 			@user_friendship = UserFriendship.new user: users(:jason), friend: users(:mike)
 		end
 		
-		should "have a pending state" do 
+		should "have a pending state" do
+			puts @user_friendship.inspect
 			assert_equal 'pending', @user_friendship.state
 		end
 	end
