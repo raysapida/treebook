@@ -11,24 +11,23 @@ class UserFriendshipTest < ActiveSupport::TestCase
 	end
 	
 	test "that creating a friendship based on user id and friend id works" do
-    UserFriendship.create user_id: users(:jason).id, friend_id: users(:mike).id
+    UserFriendship.create user_id: users(:jason).id, friend_id: users(:mike).id, state: :pending
     assert users(:jason).pending_friends.include?(users(:mike))
   end
 	
 	context "a new instance" do 
 		setup do 
-			@user_friendship = UserFriendship.new user: users(:jason), friend: users(:mike)
+			@user_friendship = UserFriendship.new user: users(:jason), friend: users(:mike), state: :pending
 		end
 		
 		should "have a pending state" do
-			puts @user_friendship.inspect
 			assert_equal 'pending', @user_friendship.state
 		end
 	end
 	
 	context "#send_request_email" do
     setup do
-      @user_friendship = UserFriendship.create user: users(:jason), friend: users(:mike)
+      @user_friendship = UserFriendship.create user: users(:jason), friend: users(:mike), state: :pending
     end
 
     should "send an email" do
