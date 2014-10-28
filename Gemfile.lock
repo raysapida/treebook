@@ -190,6 +190,8 @@ GEM
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
     rack (1.6.0.beta)
+    rack-attack (4.2.0)
+      rack
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
     rack-test (0.6.2)
@@ -319,6 +321,7 @@ DEPENDENCIES
   pg (~> 0.17.1)
   pry-byebug (~> 2.0.0)
   pry-rails (~> 0.3.2)
+  rack-attack (~> 4.2.0)
   rails (= 4.2.0.beta2)
   rails_12factor (~> 0.0.3)
   rails_serve_static_assets (~> 0.0.2)

@@ -57,3 +57,4 @@ group :production, :staging do
 end
 
 gem 'unicorn', '~> 4.8.3'
+gem 'rack-attack', '~> 4.2.0'
