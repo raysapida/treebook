@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001230208) do
+ActiveRecord::Schema.define(version: 20141029012310) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
-    t.string   "action"
+    t.string   "action",          limit: 255
     t.integer  "targetable_id"
-    t.string   "targetable_type"
+    t.string   "targetable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20141001230208) do
 
   create_table "albums", force: true do |t|
     t.integer  "user_id"
-    t.string   "title"
+    t.string   "title",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20141001230208) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
+    t.string   "attachment_file_name",    limit: 255
+    t.string   "attachment_content_type", limit: 255
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
   end
@@ -49,14 +49,14 @@ ActiveRecord::Schema.define(version: 20141001230208) do
   create_table "pictures", force: true do |t|
     t.integer  "album_id"
     t.integer  "user_id"
-    t.string   "caption"
+    t.string   "caption",               limit: 255
     t.text     "description"
-    t.string   "pictures_file_name"
-    t.string   "pictures_content_type"
+    t.string   "pictures_file_name",    limit: 255
+    t.string   "pictures_content_type", limit: 255
     t.integer  "pictures_file_size"
     t.datetime "pictures_updated_at"
-    t.string   "asset_file_name"
-    t.string   "asset_content_type"
+    t.string   "asset_file_name",       limit: 255
+    t.string   "asset_content_type",    limit: 255
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
     t.datetime "created_at"
@@ -81,26 +81,27 @@ ActiveRecord::Schema.define(version: 20141001230208) do
     t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "state"
+    t.string   "state",      limit: 255
   end
 
   add_index "user_friendships", ["state"], name: "index_user_friendships_on_state"
   add_index "user_friendships", ["user_id", "friend_id"], name: "index_user_friendships_on_user_id_and_friend_id"
 
   create_table "users", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "profile_name"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
+    t.string   "profile_name",           limit: 255
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.boolean  "admin",                              default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
