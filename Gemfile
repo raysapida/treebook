@@ -58,3 +58,4 @@ end
 
 gem 'unicorn', '~> 4.8.3'
 gem 'rack-attack', '~> 4.2.0'
+gem 'kramdown', '~> 1.5.0'
