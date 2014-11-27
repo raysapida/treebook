@@ -13,20 +13,18 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Windows specific gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
-# gems added during the tutorials
+# gems added during the treehouse tutorials
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'devise', '~> 3.4.0'
 gem 'simple_form', '>= 3.1.0.rc2'
 gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
 gem 'draper', '~> 1.4.0'
 gem 'js-routes', '~> 0.9.9'
-gem "paperclip", ">=3"
+gem 'paperclip', '>=3'
 #added this for breadcrumbs helper instead of twitter-bootstrap-rails
 gem 'bootstrap-sass-extras', '~> 0.0.2'
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
-gem 'high_voltage', '~> 2.2.1'
-gem 'bloggy', '~> 0.3'
 
 group :development do
   gem 'thin', '~> 1.6.3'
@@ -35,27 +33,28 @@ end
 group :test do 
 	gem 'shoulda', '~> 3.5.0'
 	gem 'factory_girl_rails', '~> 4.5.0'
+	gem 'sqlite3', '~> 1.3.9'
 end
 
 group :development, :test do
-	gem 'sqlite3', '~> 1.3.9'
   gem 'log_buddy', '~> 0.7.0'
 	gem 'hirb', '~> 0.7.2'
 	gem 'pry-rails', '~> 0.3.2'
 	gem 'pry-byebug', '~> 2.0.0'
 end
 
-group :production do
-	gem 'pg', '~> 0.11'
-end
-
-gem "foreman"
+#heroku required gems
+gem 'foreman', '~> 0.76.0'
+gem 'pg', '~> 0.11'
+gem 'unicorn', '~> 4.8.3'
 group :production, :staging do
   gem 'rails_12factor', '~> 0.0.3'
   gem 'rails_stdout_logging', '~> 0.0.3'
   gem 'rails_serve_static_assets', '~> 0.0.2'
 end
 
-gem 'unicorn', '~> 4.8.3'
+# other gems added after the tutorials
+gem 'high_voltage', '~> 2.2.1'
+gem 'bloggy', '~> 0.3'
 gem 'rack-attack', '~> 4.2.0'
 gem 'kramdown', '~> 1.5.0'
