@@ -44,13 +44,10 @@ group :development, :test do
 end
 
 #heroku required gems
-gem 'foreman', '~> 0.76.0'
 gem 'pg', '~> 0.11'
 gem 'unicorn', '~> 4.8.3'
 group :production, :staging do
   gem 'rails_12factor', '~> 0.0.3'
-  gem 'rails_stdout_logging', '~> 0.0.3'
-  gem 'rails_serve_static_assets', '~> 0.0.2'
 end
 
 # other gems added after the tutorials
