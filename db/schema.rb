@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20141029012310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "activities", force: true do |t|
+  create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "action"
     t.integer  "targetable_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20141029012310) do
   add_index "activities", ["targetable_id", "targetable_type"], name: "index_activities_on_targetable_id_and_targetable_type", using: :btree
   add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
-  create_table "albums", force: true do |t|
+  create_table "albums", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
     t.datetime "created_at"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20141029012310) do
 
   add_index "albums", ["user_id"], name: "index_albums_on_user_id", using: :btree
 
-  create_table "documents", force: true do |t|
+  create_table "documents", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20141029012310) do
 
   add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
-  create_table "pictures", force: true do |t|
+  create_table "pictures", force: :cascade do |t|
     t.integer  "album_id"
     t.integer  "user_id"
     t.string   "caption"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20141029012310) do
   add_index "pictures", ["album_id"], name: "index_pictures_on_album_id", using: :btree
   add_index "pictures", ["user_id"], name: "index_pictures_on_user_id", using: :btree
 
-  create_table "statuses", force: true do |t|
+  create_table "statuses", force: :cascade do |t|
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20141029012310) do
 
   add_index "statuses", ["user_id"], name: "index_statuses_on_user_id", using: :btree
 
-  create_table "user_friendships", force: true do |t|
+  create_table "user_friendships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
     t.datetime "created_at"
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 20141029012310) do
   add_index "user_friendships", ["state"], name: "index_user_friendships_on_state", using: :btree
   add_index "user_friendships", ["user_id", "friend_id"], name: "index_user_friendships_on_user_id_and_friend_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "profile_name"
