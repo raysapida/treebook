@@ -26,10 +26,6 @@ gem 'bootstrap-sass-extras', '~> 0.0.2'
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 
-group :development do
-  gem 'thin', '~> 1.6.3'
-end
-
 group :test do 
 	gem 'shoulda', '~> 3.5.0'
 	gem 'factory_girl_rails', '~> 4.5.0'
@@ -41,6 +37,7 @@ group :development, :test do
 	gem 'hirb', '~> 0.7.2'
 	gem 'pry-rails', '~> 0.3.2'
 	gem 'pry-byebug', '~> 2.0.0'
+  gem 'dotenv-rails', '~> 2.0.0'
 end
 
 #heroku required gems
