@@ -49,6 +49,5 @@ end
 
 # other gems added after the tutorials
 gem 'high_voltage', '~> 2.2.1'
-gem 'bloggy', '~> 0.3'
 gem 'rack-attack', '~> 4.2.0'
 gem 'kramdown', '~> 1.5.0'
