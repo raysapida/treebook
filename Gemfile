@@ -52,3 +52,4 @@ gem 'high_voltage', '~> 2.2.1'
 gem 'rack-attack', '~> 4.2.0'
 gem 'redcarpet'
 gem 'pygments.rb'
+gem 'haml-rails', :group => :development

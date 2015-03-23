@@ -1,0 +1,5 @@
+.meta
+  %time{ pubdate: "", datetime: article.created_at }
+    = l article.created_at, format: :long
+  by
+  = article.author

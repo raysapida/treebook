@@ -1,0 +1,10 @@
+<% @articles.each do |article| %>
+  <article>
+    <h1> <%= link_to article.title, blog_article_path(article) %> </h1>
+    <%= render partial: "meta", locals: { article: article } %>
+    <%= preserve_markdown article.excerpt %>
+    <% if article.has_more_text? %>
+      <p><%= link_to "Continue reading →", blog_article_path(article)%> </p>
+    <% end %>
+  </article>
+<% end %>
