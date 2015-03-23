@@ -2,8 +2,6 @@ class StatusesController < ApplicationController
 	before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_status, only: [:show, :edit, :update, :destroy]
 
-  # GET /statuses
-  # GET /statuses.json
   def index
     @statuses = Status.order('created_at desc').all
 
@@ -13,8 +11,6 @@ class StatusesController < ApplicationController
     end
   end
 
-  # GET /statuses/1
-  # GET /statuses/1.json
    def show
     @status = Status.find(params[:id])
 
@@ -24,7 +20,6 @@ class StatusesController < ApplicationController
     end
   end
 
-  # GET /statuses/new
   def new
     @status = current_user.statuses.new
 		@status.build_document
@@ -35,13 +30,10 @@ class StatusesController < ApplicationController
     end
   end
 
-  # GET /statuses/1/edit
   def edit
     @status = Status.find(params[:id])
   end
 
-  # POST /statuses
-  # POST /statuses.json
   def create
     @status = current_user.statuses.new(status_params)
 
@@ -57,8 +49,6 @@ class StatusesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /statuses/1
-  # PATCH/PUT /statuses/1.json
   def update
 		@status = current_user.statuses.find(params[:id])
 		@document = @status.document 
@@ -86,8 +76,6 @@ class StatusesController < ApplicationController
 		end
   end
 
-  # DELETE /statuses/1
-  # DELETE /statuses/1.json
   def destroy
     @status = Status.find(params[:id])
     @status.destroy
@@ -99,12 +87,10 @@ class StatusesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_status
       @status = Status.find(params.require(:id))
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
       params.require(:status).permit(:content, :attachment,  document_attributes: [:attachment, :remove_attachment] ) if params[:status]
     end

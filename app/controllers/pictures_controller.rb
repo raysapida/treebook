@@ -6,11 +6,6 @@ class PicturesController < ApplicationController
 	before_filter :ensure_proper_user, only: [:create, :new, :update, :edit, :destroy]
 	before_filter :add_breadcrumbs
 
-	
-  # before_action :set_picture, only: [:show, :edit, :update, :destroy]
-
-  # GET /pictures
-  # GET /pictures.json
   def index
     @pictures = @album.pictures.all
 		
@@ -20,8 +15,6 @@ class PicturesController < ApplicationController
 		end
   end
 
-  # GET /pictures/1
-  # GET /pictures/1.json
   def show
 		@picture = @album.pictures.find(params[:id])
 		add_breadcrumb @picture, album_picture_path(@album, @picture)
@@ -32,7 +25,6 @@ class PicturesController < ApplicationController
 		end
   end
 
-  # GET /pictures/new
   def new
     @picture = @album.pictures.new
 		
@@ -42,13 +34,9 @@ class PicturesController < ApplicationController
 		end
   end
 
-  # GET /pictures/1/edit
   def edit
-		
   end
 
-  # POST /pictures
-  # POST /pictures.json
   def create
     @picture = @album.pictures.new(picture_params)
 
@@ -64,8 +52,6 @@ class PicturesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /pictures/1
-  # PATCH/PUT /pictures/1.json
   def update
     respond_to do |format|
       if @picture.update(picture_params)
@@ -79,8 +65,6 @@ class PicturesController < ApplicationController
     end
   end
 
-  # DELETE /pictures/1
-  # DELETE /pictures/1.json
   def destroy
     @picture.destroy
     respond_to do |format|
@@ -107,14 +91,10 @@ class PicturesController < ApplicationController
 			add_breadcrumb "Albums", albums_path
 			add_breadcrumb "Pictures", album_pictures_path(@album)
   	end
-    # Use callbacks to share common setup or constraints between actions.
+  
 		def find_user 
 			@user = User.find_by_profile_name(params[:profile_name])
 		end
-	
-    # def set_picture
-      # @picture = Picture.find(params[:id])
-    # end
 	
 		def find_album 
 			if signed_in? && current_user.profile_name == params[:profile_name]
@@ -128,7 +108,6 @@ class PicturesController < ApplicationController
 			@picture = @album.pictures.find(params[:id])
 		end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def picture_params
       params.require(:picture).permit(:album_id, :user_id, :caption, :description, :asset)
     end
