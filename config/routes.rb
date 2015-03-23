@@ -41,6 +41,10 @@ Rails.application.routes.draw do
 			resources :pictures
 		end
 	end
+
+  namespace :blog do
+    resources :articles, path: '', only: [:index, :show]
+  end
 	
 	get '/:id', to: 'profiles#show', as: :profile
 	
