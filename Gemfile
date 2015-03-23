@@ -50,6 +50,6 @@ end
 # other gems added after the tutorials
 gem 'high_voltage', '~> 2.2.1'
 gem 'rack-attack', '~> 4.2.0'
-gem 'redcarpet'
-gem 'pygments.rb'
-gem 'haml-rails', :group => :development
+gem 'redcarpet', '~> 3.2.2'
+gem 'pygments.rb', '~> 0.6.2'
+gem 'haml-rails', '~> 0.9.0'
