@@ -50,4 +50,5 @@ end
 # other gems added after the tutorials
 gem 'high_voltage', '~> 2.2.1'
 gem 'rack-attack', '~> 4.2.0'
-gem 'kramdown', '~> 1.5.0'
+gem 'redcarpet'
+gem 'pygments.rb'

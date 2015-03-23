@@ -108,7 +108,6 @@ GEM
       sprockets-rails
     json (1.8.2)
     kgio (2.9.3)
-    kramdown (1.5.0)
     log_buddy (0.7.0)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
@@ -128,6 +127,7 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.18.1)
+    posix-spawn (0.3.10)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -137,6 +137,9 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.3)
       pry (>= 0.9.10)
+    pygments.rb (0.6.2)
+      posix-spawn (~> 0.3.6)
+      yajl-ruby (~> 1.2.0)
     rack (1.6.0)
     rack-attack (4.2.0)
       rack
@@ -174,6 +177,7 @@ GEM
     raindrops (0.13.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    redcarpet (3.2.2)
     request_store (1.1.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
@@ -224,6 +228,7 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.7)
+    yajl-ruby (1.2.1)
 
 PLATFORMS
   ruby
@@ -242,15 +247,16 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails (~> 3.1.2)
   js-routes (~> 0.9.9)
-  kramdown (~> 1.5.0)
   log_buddy (~> 0.7.0)
   paperclip (>= 3)
   pg (~> 0.11)
   pry-byebug (~> 2.0.0)
   pry-rails (~> 0.3.2)
+  pygments.rb
   rack-attack (~> 4.2.0)
   rails (= 4.2.0)
   rails_12factor (~> 0.0.3)
+  redcarpet
   sass-rails (>= 5.0.0)
   sdoc (~> 0.4.0)
   shoulda (~> 3.5.0)
