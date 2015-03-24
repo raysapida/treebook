@@ -1,4 +1,4 @@
-[heroku demo](https://whispering-beach-6783.herokuapp.com/)
+[heroku demo](http://mustached-octo-robot.herokuapp.com/)
 
 ### What is this repository for? ###
 * Started from Treehouse Ruby on Rails track on creating a facebook clone.
