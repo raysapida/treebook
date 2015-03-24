@@ -50,21 +50,21 @@ class StatusesController < ApplicationController
   end
 
   def update
-		@status = current_user.statuses.find(params[:id])
-		@document = @status.document 
+		status = current_user.statuses.find(params[:id])
+		document = status.document 
 		
-		@status.transaction do 
-			@status.update_attributes(status_params)
-			@document.update_attributes(document_params) if @document
+		status.transaction do 
+			status.update_attributes(status_params)
+			document.update_attributes(document_params) if @document
 			current_user.create_activity(@status, 'updated')
-			unless @status.valid? || (@status.valid? && @document && !@document.valid?)
+			unless status.valid? || (status.valid? && document && !document.valid?)
 				raise ActiveRecord::Rollback 
 			end
 		end
 		
     respond_to do |format|
-			format.html { redirect_to @status, notice: 'Status was successfully updated.' }
-			format.json { render :show, status: :ok, location: @status }
+			format.html { redirect_to status, notice: 'Status was successfully updated.' }
+			format.json { render :show, status: :ok, location: status }
     end
 	rescue ActiveRecord::Rollback 
 		respond_to do |format|
@@ -72,7 +72,7 @@ class StatusesController < ApplicationController
 				flash.now[:error] = "Update failed."
 				render action: "edit" 
 			end
-			format.json { render json: @status.errors, status: :unprocessable_entity }
+			format.json { render json: status.errors, status: :unprocessable_entity }
 		end
   end
 
