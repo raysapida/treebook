@@ -63,7 +63,8 @@ class StatusesController < ApplicationController
 		end
 		
     respond_to do |format|
-			format.html { redirect_to status, notice: 'Status was successfully updated.' }
+      redirect_url  = status_path(status)
+			format.html { redirect_to redirect_url, :only_path => true , notice: 'Status was successfully updated.' }
 			format.json { render :show, status: :ok, location: status }
     end
 	rescue ActiveRecord::Rollback 
