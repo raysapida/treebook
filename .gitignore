@@ -17,4 +17,5 @@
 /public/system
 /public/blog/
 
-.env
+.env.development
+.env.production
