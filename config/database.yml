@@ -17,7 +17,7 @@
 # For details on connection pooling, see rails configuration guide
 # http://guides.rubyonrails.org/configuring.html#database-pooling
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
   pool: 5
   timeout: 5000
 
