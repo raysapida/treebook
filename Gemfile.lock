@@ -77,8 +77,6 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     dotenv (2.0.0)
-    dotenv-heroku (0.0.1)
-      rake
     dotenv-rails (2.0.0)
       dotenv (= 2.0.0)
     draper (1.4.0)
@@ -256,7 +254,6 @@ DEPENDENCIES
   bootstrap-will_paginate
   coffee-rails (~> 4.0.0)
   devise (~> 3.4.0)
-  dotenv-heroku
   dotenv-rails (~> 2.0.0)
   draper (~> 1.4.0)
   factory_girl_rails (~> 4.5.0)
