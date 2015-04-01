@@ -27,7 +27,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 
 group :test do 
-	gem 'shoulda', '~> 3.5.0'
+	gem 'shoulda-matchers', '~> 2.8.0', require: false
 end
 
 group :development, :test do
