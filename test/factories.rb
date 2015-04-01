@@ -1,3 +1,4 @@
+=begin
 FactoryGirl.define do
   factory :user do
     first_name 'First'
@@ -26,3 +27,4 @@ FactoryGirl.define do
     end
   end
 end
+=end
