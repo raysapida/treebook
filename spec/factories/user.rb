@@ -25,4 +25,10 @@ FactoryGirl.define do
     f.caption { Faker::Lorem.sentence }
     f.description { Faker::Lorem.characters }
   end
+
+  factory :status do |f|
+    association :user, factory: :user
+
+    f.content { Faker::Lorem.sentence }
+  end
 end
