@@ -14,15 +14,13 @@ FactoryGirl.define do
   end
 
   factory :album do |f|
-    user
-    #association :user, factory: :user
+    association :user, factory: :user
 
     f.title { Faker::Lorem.characters }
   end
 
   factory :picture do |f|
-    user
-    album
+    association :album, factory: :album
 
     f.caption { Faker::Lorem.sentence }
     f.description { Faker::Lorem.characters }
