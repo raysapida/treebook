@@ -12,23 +12,4 @@ FactoryGirl.define do
     f.password { pass }
     f.password_confirmation { pass }
   end
-
-  factory :album do |f|
-    association :user, factory: :user
-
-    f.title { Faker::Lorem.characters }
-  end
-
-  factory :picture do |f|
-    association :album, factory: :album
-
-    f.caption { Faker::Lorem.sentence }
-    f.description { Faker::Lorem.characters }
-  end
-
-  factory :status do |f|
-    association :user, factory: :user
-
-    f.content { Faker::Lorem.sentence }
-  end
 end
