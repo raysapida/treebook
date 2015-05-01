@@ -5,6 +5,11 @@ describe AlbumsController do
   let!(:album) { create(:album) }
   let!(:picture) { create(:picture) }
   let!(:default_params) {  {profile_name: picture.album.user, album_id: picture.album} }
+  let!(:album_params) do
+    {
+      album: { title: "Album title" }
+    }
+  end
   let!(:picture_params) do 
     {
       picture: {user_id: picture.album.user, 
@@ -56,23 +61,24 @@ describe AlbumsController do
 
   describe 'POST create' do
     it 'with the signed in user' do
-      sign_in :user, picture.album.user
+      user = create(:user)
+      sign_in :user, user
 
-      post :create, default_params.merge(picture_params)
+      post :create, { profile_name: user}.merge(album_params)
 
       expect(flash[:notice]).to match(/Album was successfully created./)
-      expect(response).to redirect_to(album_pictures_path(picture.album))
+      expect(response).to redirect_to(album_path(user.albums.first))
     end
   end
 
   describe 'PUT update' do
     it 'with the current signed in user' do
-      sign_in :user, picture.album.user
+      sign_in :user, album.user
 
-      put :update, default_params.merge(picture_params)
+      put :update, { profile_name: album.user, id: album, album: {title: "New title"}}
 
       expect(flash[:notice]).to match(/Album was successfully updated./)
-      expect(response).to redirect_to(album_pictures_path(picture.album))
+      expect(response).to redirect_to(album_pictures_path(album))
     end
   end
 
