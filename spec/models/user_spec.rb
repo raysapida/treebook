@@ -52,17 +52,19 @@ describe User do
   end
   
   it '#has_blocked?' do
-    pending('needs a factory for user friendships')
-    expect(user.has_blocked?(friend)).to be true
+    friendship = create(:blocked_user_friendship)
+    expect(friendship.user.has_blocked?(friendship.friend)).to be true
   end
 
   it '#create_activity for status' do
-    pending('needs a factory for statuses')
+    pending('needs a factory for activity or another way to test polymorphic')
+    status = create(:status)
     expect(user.create_activity(status, activity)).to change(activity.count).by(1)
   end
 
   it '#create_activity for album' do
-    pending('needs a factory for statuses')
+    pending('needs a factory for activity or another way to test polymorphic')
+    album = create(:album)
     expect(user.create_activity(album, activity)).to change(activity.count).by(1)
   end
 end
