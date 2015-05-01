@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
-ruby "2.2.1"
+ruby "2.2.2"
 # original gems
 gem 'rails', '4.2.1'
+<<<<<<< HEAD
 gem 'sass-rails', '>= 5.0.0'
+=======
+gem 'sass-rails', '5.0.3'
+>>>>>>> spec
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.2'
@@ -27,8 +31,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 
 group :test do 
-	gem 'shoulda', '~> 3.5.0'
-	gem 'factory_girl_rails', '~> 4.5.0'
+	gem 'shoulda-matchers', '~> 2.8.0', require: false
 end
 
 group :development, :test do
@@ -37,6 +40,11 @@ group :development, :test do
 	gem 'pry-rails', '~> 0.3.2'
 	gem 'pry-byebug', '~> 2.0.0'
   gem 'dotenv-rails', '~> 2.0.0'
+	gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara', '~> 2.4.4'
+  gem 'database_cleaner', '~> 1.4.1'
+  gem 'faker', '~> 1.4.3'
 end
 
 #heroku required gems
