@@ -1,96 +1,135 @@
 require 'rails_helper'
 
-describe AlbumsController do
-  let!(:different_user) { create(:user) }
-  let!(:album) { create(:album) }
-  let!(:picture) { create(:picture) }
-  let!(:default_params) {  {profile_name: picture.album.user, album_id: picture.album} }
-  let!(:album_params) do
-    {
-      album: { title: "Album title" }
-    }
-  end
-  let!(:picture_params) do 
-    {
-      picture: {user_id: picture.album.user, 
-                album_id: picture.album, 
-                picture_id: picture.id,
-                caption: picture.caption, 
-                description: picture.description}
-    }
-  end
+RSpec.describe AlbumsController, type: :controller do
 
-  describe 'GET index' do
-    it 'without a signed in user' do
-      get :index, default_params
+  let(:valid_attributes) {
+    skip("Add a hash of attributes valid for your model")
+  }
 
-      expect(response).to be_success
-      expect(response).to render_template(:index)
+  let(:invalid_attributes) {
+    skip("Add a hash of attributes invalid for your model")
+  }
+
+  let(:valid_session) { {} }
+
+  describe "GET #index" do
+    it "assigns all albums as @albums" do
+      album = Album.create! valid_attributes
+      get :index, {}, valid_session
+      expect(assigns(:albums)).to eq([album])
     end
   end
 
-  describe 'GET show' do
-    it 'without a signed in user' do
-      get :show, profile_name: picture.album.user, id: picture.album
-
-      expect(response).to redirect_to(album_pictures_path(picture.album))
+  describe "GET #show" do
+    it "assigns the requested album as @album" do
+      album = Album.create! valid_attributes
+      get :show, {:id => album.to_param}, valid_session
+      expect(assigns(:album)).to eq(album)
     end
   end
 
-  describe 'GET new' do
-    it 'with the current signed in user' do
-      sign_in :user, picture.album.user
-
-      get :new, default_params
-
-      expect(response).to be_success
-      expect(response).to render_template(:new)
+  describe "GET #new" do
+    it "assigns a new album as @album" do
+      get :new, {}, valid_session
+      expect(assigns(:album)).to be_a_new(Album)
     end
   end
 
-  describe 'GET edit' do
-    it 'with the current signed in user' do
-      sign_in :user, picture.album.user
-
-      get :edit, default_params.merge(id: picture.album)
-
-      expect(response).to be_success
-      expect(response).to render_template(:edit)
+  describe "GET #edit" do
+    it "assigns the requested album as @album" do
+      album = Album.create! valid_attributes
+      get :edit, {:id => album.to_param}, valid_session
+      expect(assigns(:album)).to eq(album)
     end
   end
 
-  describe 'POST create' do
-    it 'with the signed in user' do
-      user = create(:user)
-      sign_in :user, user
+  describe "POST #create" do
+    context "with valid params" do
+      it "creates a new Album" do
+        expect {
+          post :create, {:album => valid_attributes}, valid_session
+        }.to change(Album, :count).by(1)
+      end
 
-      post :create, { profile_name: user}.merge(album_params)
+      it "assigns a newly created album as @album" do
+        post :create, {:album => valid_attributes}, valid_session
+        expect(assigns(:album)).to be_a(Album)
+        expect(assigns(:album)).to be_persisted
+      end
 
-      expect(flash[:notice]).to match(/Album was successfully created./)
-      expect(response).to redirect_to(album_path(user.albums.first))
+      it "redirects to the created album" do
+        post :create, {:album => valid_attributes}, valid_session
+        expect(response).to redirect_to(Album.last)
+      end
+    end
+
+    context "with invalid params" do
+      it "assigns a newly created but unsaved album as @album" do
+        post :create, {:album => invalid_attributes}, valid_session
+        expect(assigns(:album)).to be_a_new(Album)
+      end
+
+      it "re-renders the 'new' template" do
+        post :create, {:album => invalid_attributes}, valid_session
+        expect(response).to render_template("new")
+      end
     end
   end
 
-  describe 'PUT update' do
-    it 'with the current signed in user' do
-      sign_in :user, album.user
+  describe "PUT #update" do
+    context "with valid params" do
+      let(:new_attributes) {
+        skip("Add a hash of attributes valid for your model")
+      }
 
-      put :update, { profile_name: album.user, id: album, album: {title: "New title"}}
+      it "updates the requested album" do
+        album = Album.create! valid_attributes
+        put :update, {:id => album.to_param, :album => new_attributes}, valid_session
+        album.reload
+        skip("Add assertions for updated state")
+      end
 
-      expect(flash[:notice]).to match(/Album was successfully updated./)
-      expect(response).to redirect_to(album_pictures_path(album))
+      it "assigns the requested album as @album" do
+        album = Album.create! valid_attributes
+        put :update, {:id => album.to_param, :album => valid_attributes}, valid_session
+        expect(assigns(:album)).to eq(album)
+      end
+
+      it "redirects to the album" do
+        album = Album.create! valid_attributes
+        put :update, {:id => album.to_param, :album => valid_attributes}, valid_session
+        expect(response).to redirect_to(album)
+      end
+    end
+
+    context "with invalid params" do
+      it "assigns the album as @album" do
+        album = Album.create! valid_attributes
+        put :update, {:id => album.to_param, :album => invalid_attributes}, valid_session
+        expect(assigns(:album)).to eq(album)
+      end
+
+      it "re-renders the 'edit' template" do
+        album = Album.create! valid_attributes
+        put :update, {:id => album.to_param, :album => invalid_attributes}, valid_session
+        expect(response).to render_template("edit")
+      end
     end
   end
 
-  describe 'DELETE destroy' do
-    it 'with a signed in user' do
-      sign_in :user, picture.album.user
+  describe "DELETE #destroy" do
+    it "destroys the requested album" do
+      album = Album.create! valid_attributes
+      expect {
+        delete :destroy, {:id => album.to_param}, valid_session
+      }.to change(Album, :count).by(-1)
+    end
 
-      delete :destroy, default_params.merge(id: picture.album)
-
-      expect(flash[:notice]).to match(/Album was successfully destroyed./)
-      expect(response).to redirect_to(albums_path)
+    it "redirects to the albums list" do
+      album = Album.create! valid_attributes
+      delete :destroy, {:id => album.to_param}, valid_session
+      expect(response).to redirect_to(albums_url)
     end
   end
+
 end
-
