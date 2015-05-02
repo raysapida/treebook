@@ -13,6 +13,9 @@
     <p>
       <%= @status.content %>
     </p>
+    <% unless @status.document.nil? %>
+      <%= image_tag(@status.document.attachment.url(:large), class: "img-polaroid") %>
+    <% end %>
 
     <hr />
     <div class="meta">

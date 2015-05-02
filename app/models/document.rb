@@ -1,5 +1,7 @@
 class Document < ActiveRecord::Base
-	has_attached_file :attachment
+	has_attached_file :attachment, styles: {
+    large: "800x800>", medium: "300x200>", small: "260x180>", thumb: "80x80#"
+  }
 	
 	attr_accessor :remove_attachment
 	

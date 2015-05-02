@@ -10,7 +10,12 @@
       <%= avatar_profile_link status.user, {}, class: 'pull-left' %>
       <div class="media-body">
         <h4 class="media-heading"><%= status.user.full_name %></h4>
-        <p><%= status.content %></p>
+        <p>
+          <%= status.content %>
+          <% unless status.document.nil? %>
+            <%= image_tag(status.document.attachment.url(:thumb), class: "img-polaroid") %>
+          <% end %>
+        </p>
         <div class="meta">
             <%= link_to time_ago_in_words(status.created_at) + " ago", status %> 
             <% if signed_in? && current_user == status.user %>
