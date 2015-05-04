@@ -7,7 +7,8 @@ FactoryGirl.define do
     association :album, factory: :album
     association :user, factory: :user
 
-    asset { fixture_file_upload "#{Rails.root}/spec/images/rails.png", 'image/png' }
+    #asset { fixture_file_upload "#{Rails.root}/spec/images/rails.png", 'image/png' }
+    asset File.new("#{Rails.root}/spec/images/rails.png")
 
     f.caption { Faker::Lorem.sentence }
     f.description { Faker::Lorem.characters }
