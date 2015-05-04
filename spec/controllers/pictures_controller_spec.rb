@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'rack/test'
 
 RSpec.describe PicturesController, type: :controller do
   let(:album) { create(:album) }
@@ -8,6 +9,7 @@ RSpec.describe PicturesController, type: :controller do
   let(:valid_attributes) {
     {user_id: album.user,
      album_id: album,
+     asset: Rack::Test::UploadedFile.new("#{Rails.root}/spec/images/rails.png", 'image/png'),
      caption: 'Valid caption',
      description: 'Valid description' }
   }
