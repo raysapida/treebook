@@ -1,6 +1,10 @@
 <%= page_header do %>
   <h1>
-    <%= avatar_profile_link @user, {}, class: '' %>
+    <% if @user.avatar_file_name.nil? %>
+      <%= avatar_profile_link @user, {}, class: '' %>
+    <% else %>
+      <%= image_tag(@user.avatar.url(:thumb), alt: @user.full_name, class: "img-polaroid") %>
+    <% end %>
     <%= @user.full_name %>
   </h1>
 <% end %>
@@ -8,13 +12,14 @@
 <%= link_to "Albums", albums_path(@user), class: 'btn' %>
 
 <% if signed_in? %>
-	<span id="friend-status">
-		<% if current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
-			<%= link_to "Edit Friendship", edit_user_friendship_path(friend_id: @user), class: 'btn btn-primary' %>
-		<% else %>
-			<%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: 'btn btn-primary', id: 'add-friendship', data: { friend_id: @user.to_param} %>
-		<% end %>
-	</span>
+  <span id="friend-status">
+    <% if current_user == @user %>
+    <% elsif current_user.friends.include?(@user) || current_user.pending_friends.include?(@user) %>
+      <%= link_to "Edit Friendship", edit_user_friendship_path(friend_id: @user), class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: 'btn btn-primary', id: 'add-friendship', data: { friend_id: @user.to_param} %>
+  <% end %>
+  </span>
 <% end %>
 
 <% if @statuses %>
