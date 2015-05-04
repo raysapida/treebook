@@ -1,5 +1,5 @@
 class StatusesController < ApplicationController
-	before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_status, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -11,7 +11,7 @@ class StatusesController < ApplicationController
     end
   end
 
-   def show
+  def show
     @status = Status.find(params[:id])
 
     respond_to do |format|
@@ -22,7 +22,7 @@ class StatusesController < ApplicationController
 
   def new
     @status = current_user.statuses.new
-		@status.build_document
+    @status.build_document
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,7 +39,7 @@ class StatusesController < ApplicationController
 
     respond_to do |format|
       if @status.save
-				current_user.create_activity(@status, 'created')
+        current_user.create_activity(@status, 'created')
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else
@@ -50,37 +50,34 @@ class StatusesController < ApplicationController
   end
 
   def update
-		status = current_user.statuses.find(params[:id])
-		document = status.document 
-		
-		status.transaction do 
-			status.update_attributes(status_params)
-			document.update_attributes(document_params) if @document
-			current_user.create_activity(@status, 'updated')
-			unless status.valid? || (status.valid? && document && !document.valid?)
-				raise ActiveRecord::Rollback 
-			end
-		end
-		
+    status = current_user.statuses.find(params[:id])
+    document = status.document
+
+    status.transaction do
+      status.update_attributes!(status_params)
+      document.update_attributes!(document_params) if document
+      current_user.create_activity(status, 'updated')
+    end
+
     respond_to do |format|
       redirect_url  = status_path(status)
-			format.html { redirect_to redirect_url, :only_path => true , notice: 'Status was successfully updated.' }
-			format.json { render :show, status: :ok, location: status }
+      format.html { redirect_to redirect_url, :only_path => true , notice: 'Status was successfully updated.' }
+      format.json { render :show, status: :ok, location: status }
     end
-	rescue ActiveRecord::Rollback 
-		respond_to do |format|
-			format.html  do 
-				flash.now[:error] = "Update failed."
-				render action: "edit" 
-			end
-			format.json { render json: status.errors, status: :unprocessable_entity }
-		end
+  rescue ActiveRecord::RecordInvalid
+    respond_to do |format|
+      format.html  do
+        flash.now[:error] = "Update failed."
+        render action: "edit"
+      end
+      format.json { render json: status.errors, status: :unprocessable_entity }
+    end
   end
 
   def destroy
     @status = Status.find(params[:id])
     @status.destroy
-		current_user.create_activity(@status, 'deleted')
+    current_user.create_activity(@status, 'deleted')
     respond_to do |format|
       format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
       format.json { head :no_content }
@@ -88,15 +85,15 @@ class StatusesController < ApplicationController
   end
 
   private
-    def set_status
-      @status = Status.find(params.require(:id))
-    end
+  def set_status
+    @status = Status.find(params.require(:id))
+  end
 
-    def status_params
-      params.require(:status).permit(:content, :attachment,  document_attributes: [:attachment, :remove_attachment] ) if params[:status]
-    end
-	
-		def document_params 
-			params.permit(document_attributes: :attachment)
-		end
+  def status_params
+    params.require(:status).permit(:content, :attachment,  document_attributes: [:attachment, :remove_attachment] ) if params[:status]
+  end
+
+  def document_params 
+    params.permit(document_attributes: :attachment)
+  end
 end

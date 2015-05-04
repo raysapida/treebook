@@ -151,11 +151,10 @@ RSpec.describe StatusesController, type: :controller do
       end
 
       it "re-renders the 'edit' template" do
-        pending('Need to understand or refactor status update action')
         status = create(:status)
         sign_in :user, status.user
 
-        put :update, {id: status, status: invalid_attributes}, valid_session
+        put :update, {id: status, status: invalid_attributes, user_id: status.user}, valid_session
 
         expect(response).to render_template("edit")
       end
