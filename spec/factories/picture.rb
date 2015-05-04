@@ -5,6 +5,8 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
   factory :picture do |f|
     association :album, factory: :album
+    association :user, factory: :user
+
     asset { fixture_file_upload "#{Rails.root}/spec/images/rails.png", 'image/png' }
 
     f.caption { Faker::Lorem.sentence }
