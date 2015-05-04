@@ -57,14 +57,14 @@ describe User do
   end
 
   it '#create_activity for status' do
-    pending('needs a factory for activity or another way to test polymorphic')
     status = create(:status)
-    expect(user.create_activity(status, activity)).to change(activity.count).by(1)
+
+    expect{user.create_activity(status, 'created')}.to change(Activity, :count).by(1)
   end
 
   it '#create_activity for album' do
-    pending('needs a factory for activity or another way to test polymorphic')
     album = create(:album)
-    expect(user.create_activity(album, activity)).to change(activity.count).by(1)
+
+    expect{user.create_activity(album, 'created')}.to change(Activity, :count).by(1)
   end
 end
