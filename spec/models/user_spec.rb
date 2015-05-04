@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe User do
-  let(:user) { create(:user) }
-  let(:friend) { create(:user) }
+  let(:user) { build(:user) }
+  let(:friend) { build(:user) }
 
   it { should have_many(:statuses) }
   it { should have_many(:friends) }
@@ -44,26 +44,26 @@ describe User do
     expect{ user.friends }.not_to raise_error
   end
 
-	it 'that creating friendships on a user works' do
+  it 'that creating friendships on a user works' do
     user.friends << friend
     user.friends.reload
 
     expect(user.friends).to include(friend)
   end
-  
+
   it '#has_blocked?' do
     friendship = create(:blocked_user_friendship)
     expect(friendship.user.has_blocked?(friendship.friend)).to be true
   end
 
   it '#create_activity for status' do
-    status = create(:status)
+    status = build(:status)
 
     expect{user.create_activity(status, 'created')}.to change(Activity, :count).by(1)
   end
 
   it '#create_activity for album' do
-    album = create(:album)
+    album = build(:album)
 
     expect{user.create_activity(album, 'created')}.to change(Activity, :count).by(1)
   end
