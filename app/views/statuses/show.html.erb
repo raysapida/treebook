@@ -4,15 +4,19 @@
   <div class="span8 offset2">
     <%= page_header do %>
       <h1>
-        <%= avatar_profile_link @status.user %>
+        <% if @status.user.avatar_file_name.nil? %>
+          <%= avatar_profile_link @status.user, {}, class: 'img-circle' %>
+        <% else %>
+          <%= image_tag(@status.user.avatar.url(:thumb), alt: @status.user.full_name, class: 'img-circle') %>
+        <% end %>
         <%= @status.user.full_name %>
         <small><%= time_ago_in_words(@status.created_at) + " ago" %></small>
       </h1>
     <% end %>
 
-    <p>
+    <h2>
       <%= @status.content %>
-    </p>
+    </h2>
     <% unless @status.document.nil? %>
       <%= image_tag(@status.document.attachment.url(:large), class: "img-polaroid") %>
     <% end %>
