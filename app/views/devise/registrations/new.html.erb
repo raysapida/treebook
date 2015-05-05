@@ -5,18 +5,48 @@
 <div class="row">
   <div class="col-md-6">
     <h2>Your Information</h2>
-    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { class: 'form-vertical' }) do |f| %>
+    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
       <%= devise_error_messages! %>
-      <%= f.input :first_name, input_html: { class: 'input-xlarge' } %>
-      <%= f.input :last_name, input_html: { class: 'input-xlarge' } %>
-      <%= f.input :profile_name, input_html: { class: 'input-xlarge' } %>
-      <%= f.input :email, input_html: { class: 'input-xlarge' } %>
-      <%= f.input :password, input_html: { class: 'input-xlarge', autocomplete: 'off' } %>
-      <%= f.input :password_confirmation, input_html: { class: 'input-xlarge', autocomplete: 'off' } %>
+      <div class="form-group">
+        <label for="first_name" class="col-md-3 control-label">First name</label>
+        <div class="col-md-8">
+        <%= f.input :first_name, label: false, input_html: { class: 'input-xlarge' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="last_name" class="col-md-3 control-label">Last name</label>
+        <div class="col-md-8">
+          <%= f.input :last_name, label: false, input_html: { class: 'input-xlarge' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="profile_name" class="col-md-3 control-label">Profile name</label>
+        <div class="col-md-8">
+          <%= f.input :profile_name, label: false, input_html: { class: 'input-xlarge' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-md-3 control-label">Email</label>
+        <div class="col-md-8">
+          <%= f.input :email, label: false, input_html: { class: 'input-xlarge' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-md-3 control-label">Password</label>
+        <div class="col-md-8">
+          <%= f.input :password, label: false, input_html: { class: 'input-xlarge', autocomplete: 'off' } %>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password_confirmation" class="col-md-3 control-label">Password confirmation</label>
+        <div class="col-md-8">
+          <%= f.input :password_confirmation, label: false, input_html: { class: 'input-xlarge', autocomplete: 'off' } %>
+        </div>
+      </div>
       <div class="form-actions">
         <%= f.submit "Sign up", class: 'btn btn-primary' %><br />
-        <%= render "devise/shared/links" %>
       </div>
+        <%= render "devise/shared/links" %>
     <% end %>
   </div>
   <div class="col-md-6">

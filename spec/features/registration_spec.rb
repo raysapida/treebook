@@ -8,12 +8,12 @@ describe 'the registration process', type: :feature do
     click_link 'Register'
     expect(page).to have_content('Your Information')
 
-    fill_in 'First name', with: 'Francis'
-    fill_in 'Last name', with: 'Asterisk'
-    fill_in 'Profile name', with: 'Pacman'
-    fill_in 'Email', with: 'pacman@mustache.com'
-    fill_in 'Password', with: 'password'
-    fill_in 'Password confirmation', with: 'password'
+    fill_in 'user[first_name]', with: 'Francis'
+    fill_in 'user[last_name]', with: 'Asterisk'
+    fill_in 'user[profile_name]', with: 'Pacman'
+    fill_in 'user[email]', with: 'pacman@mustache.com'
+    fill_in 'user[password]', with: 'password'
+    fill_in 'user[password_confirmation]', with: 'password'
     click_button 'Sign up'
     expect(page).to have_content('Welcome! You have signed up successfully.')
     expect(page).to have_content('All of the Statuses')
