@@ -1,17 +1,21 @@
 <%= page_header do %>
-	<h1>Activity Feed</h1>
+  <h1>Activity Feed</h1>
 <% end %>
 
 <% @activities.each do |activity| %>
-	<div class="media">
-  	<%= avatar_profile_link activity.user, {}, class: 'pull-left' %>
+  <div class="media">
+    <% if activity.user.avatar_file_name.nil? %>
+      <%= avatar_profile_link activity.user, {}, class: 'pull-left' %>
+    <% else %>
+      <%= image_tag(activity.user.avatar.url(:thumb), alt: activity.user.full_name, class: 'pull-left') %>
+    <% end %>
     <div class="media-body">
-    	<h4 class="media-heading"><%= activity.user.full_name %></h4>
+      <h4 class="media-heading"><%= activity.user.full_name %></h4>
       <%= render partial: "activities/#{activity.targetable_type.underscore}/#{activity.action}", locals: { activity: activity } %>
-			<small><%= activity.created_at %></small>
-		</div>
-	</div>
-<hr />
+      <small><%= activity.created_at %></small>
+    </div>
+  </div>
+  <hr />
 <% end %>
 
 <%= will_paginate @activities %>
