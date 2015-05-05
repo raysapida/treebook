@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-describe "creating a status", :type => :feature do
-  it "signed in user can create statuses" do
+describe 'creating a status', type: :feature do
+  it 'signed in user can create statuses' do
     user = create(:user)
     visit root_path
-    fill_in 'Email', :with => user.email
-    fill_in 'Password', :with => user.password
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_button 'Log in'
     expect(page).to have_content 'Signed in successfully'
 
     click_link 'Post a New Status'
     expect(page).to have_content 'New Status Update'
-    fill_in 'Content', :with => 'I hope this works'
+    fill_in 'Content', with: 'I hope this works'
     click_button 'Create Status'
     expect(page).to have_content 'Status was successfully created.'
     expect(page).to have_content 'I hope this works'
@@ -19,7 +19,7 @@ describe "creating a status", :type => :feature do
     click_link 'All Statuses'
     click_link 'Post a New Status'
     expect(page).to have_content 'New Status Update'
-    fill_in 'Content', :with => 'A new hope'
+    fill_in 'Content', with: 'A new hope'
     click_button 'Create Status'
     expect(page).to have_content 'Status was successfully created.'
     expect(page).to have_content 'A new hope'
@@ -29,24 +29,23 @@ describe "creating a status", :type => :feature do
     expect(page).to have_content 'A new hope'
   end
 
-  it "can upload an image" do
+  it 'can upload an image' do
     user = create(:user)
     visit root_path
-    fill_in 'Email', :with => user.email
-    fill_in 'Password', :with => user.password
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_button 'Log in'
     expect(page).to have_content 'Signed in successfully'
 
     click_link 'All Statuses'
     click_link 'Post a New Status'
     expect(page).to have_content 'New Status Update'
-    fill_in 'Content', :with => 'Picture Upload'
-    attach_file("status[document_attributes][attachment]",
+    fill_in 'Content', with: 'Picture Upload'
+    attach_file('status[document_attributes][attachment]',
                 "#{Rails.root}/spec/images/rails.png")
     click_button 'Create Status'
     expect(page).to have_content 'Picture Upload'
     page.has_css?('img-polaroid')
-    # expect(page).to have_xpath("#{Rails.root}/spec/images/rails.png")
     src = "#{Rails.root}/spec/images/rails.png"
     page.has_xpath?("//img[contains(@src,\"/images/#{src}\")]")
   end

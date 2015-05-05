@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'adding an avatar', :type => :feature do
+describe 'adding an avatar', type: :feature do
   it 'with a signed in user' do
     user = create(:user)
     status = create(:status, user: user)
 
     visit root_path
-    fill_in 'Email', :with => user.email
-    fill_in 'Password', :with => user.password
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_button 'Log in'
     expect(page).to have_content 'Signed in successfully'
 
@@ -16,9 +16,9 @@ describe 'adding an avatar', :type => :feature do
     expect(page).to have_content 'Update Password'
     expect(page).to have_content 'Confirm Changes'
 
-    fill_in 'Current password', :with => user.password
     attach_file('user[avatar]',
                 "#{Rails.root}/spec/images/rails.png")
+    fill_in 'user[current_password]', with: user.password
     click_button 'Update'
     expect(page).to have_content 'Your account has been updated successfully.'
 
