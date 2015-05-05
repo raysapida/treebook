@@ -1,32 +1,72 @@
-<%= page_header do %>
-  <h2>Edit My Profile</h2>
-<% end %>
-
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-vertical '}) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-horizontal'}) do |f| %>
   <%= devise_error_messages! %>
 
+  <div class='col-md-4'>
+    <% if @user.avatar_file_name.nil? %>
+      <%= avatar_profile_link @user, {}, class: '' %>
+    <% else %>
+      <%= image_tag(@user.avatar.url(:medium), alt: @user.full_name, class: "img-circle") %>
+    <% end %>
+  </div>
+
   <fieldset>
-    <legend>About Me</legend>
-    <%= f.input :first_name, input_html: { class: 'input-xxlarge' } %>
-    <%= f.input :last_name, input_html: { class: 'input-xxlarge' } %>
-    <%= f.input :email, input_html: { class: 'input-xxlarge' } %>
-    <%= f.input :avatar, label: false, as: :file %>
+    <legend class='bg-info'>About Me</legend>
+    <div class="form-group">
+      <label for="first_name" class="col-md-2 control-label">First name</label>
+      <div class="col-md-6">
+        <%= f.input :first_name, label: false, input_html: { class: 'input-xxlarge' } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="last_name" class="col-md-2 control-label">Last name</label>
+      <div class="col-md-6">
+        <%= f.input :last_name, label: false, input_html: { class: 'input-xxlarge' } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="col-md-2 control-label">Email</label>
+      <div class="col-md-6">
+        <%= f.input :email, label: false, input_html: { class: 'input-xxlarge' } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="avatar" class="col-md-2 control-label">Avatar</label>
+      <div class="col-md-6">
+        <%= f.input :avatar, label: false, as: :file %>
+      </div>
+    </div>
   </fieldset>
 
   <fieldset>
-    <legend>Update Password</legend>
-    <%= f.input :password, hint: "Leave blank if you don't want to change it", input_html: { class: 'input-xxlarge', autocomplete: 'off' } %>
-    <%= f.input :password_confirmation, input_html: { class: 'input-xxlarge', autocomplete: 'off' } %>
+    <legend class='bg-info'>Update Password</legend>
+    <div class="form-group">
+      <label for="password" class="col-md-2 control-label">Password</label>
+      <div class="col-md-6">
+        <%= f.input :password, hint: "Leave blank if you don't want to change it", label: false, input_html: { class: 'input-xxlarge', autocomplete: 'off' } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password_confirmation" class="col-md-2 control-label">Password confirmation</label>
+      <div class="col-md-6">
+        <%= f.input :password_confirmation, label: false, input_html: { class: 'input-xxlarge', autocomplete: 'off' } %>
+      </div>
+    </div>
   </fieldset>
 
   <fieldset>
-    <legend>Confirm Changes</legend>
-    <%= f.input :current_password, hint: "We need your current password to confirm your changes", input_html: { class: 'input-xxlarge', autocomplete: 'off' } %>
+    <legend class='bg-info'>Confirm Changes</legend>
+    <div class="form-group">
+      <label for="current_password" class="col-md-2 control-label">Current password</label>
+      <div class="col-md-6">
+        <%= f.input :current_password, hint: "We need your current password to confirm your changes", label: false, input_html: { class: 'input-xxlarge', autocomplete: 'off' } %>
+      </div>
+    </div>
   </fieldset>
 
   <div class="form-actions">
     <%= f.submit "Update", class: 'btn btn-primary' %>
-    <%= link_to "Back", root_path, class: 'btn' %>
-    <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'btn btn-danger pull-right' %>
+    <%= link_to "Back", root_path, class: 'btn btn-info' %>
+    <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'btn btn-warning pull-right' %>
   </div>
 <% end %>
+<br/>

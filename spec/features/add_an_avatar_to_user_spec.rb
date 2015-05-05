@@ -12,7 +12,9 @@ describe 'adding an avatar', :type => :feature do
     expect(page).to have_content 'Signed in successfully'
 
     click_link user.full_name
-    expect(page).to have_content 'Edit My Profile'
+    expect(page).to have_content 'About Me'
+    expect(page).to have_content 'Update Password'
+    expect(page).to have_content 'Confirm Changes'
 
     fill_in 'Current password', :with => user.password
     attach_file('user[avatar]',
