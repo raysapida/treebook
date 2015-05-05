@@ -11,7 +11,7 @@ describe 'creating a status', type: :feature do
 
     click_link 'Post a New Status'
     expect(page).to have_content 'New Status Update'
-    fill_in 'Content', with: 'I hope this works'
+    fill_in 'status[content]', with: 'I hope this works'
     click_button 'Create Status'
     expect(page).to have_content 'Status was successfully created.'
     expect(page).to have_content 'I hope this works'
@@ -19,7 +19,7 @@ describe 'creating a status', type: :feature do
     click_link 'All Statuses'
     click_link 'Post a New Status'
     expect(page).to have_content 'New Status Update'
-    fill_in 'Content', with: 'A new hope'
+    fill_in 'status[content]', with: 'A new hope'
     click_button 'Create Status'
     expect(page).to have_content 'Status was successfully created.'
     expect(page).to have_content 'A new hope'
@@ -40,7 +40,7 @@ describe 'creating a status', type: :feature do
     click_link 'All Statuses'
     click_link 'Post a New Status'
     expect(page).to have_content 'New Status Update'
-    fill_in 'Content', with: 'Picture Upload'
+    fill_in 'status[content]', with: 'Picture Upload'
     attach_file('status[document_attributes][attachment]',
                 "#{Rails.root}/spec/images/rails.png")
     click_button 'Create Status'
