@@ -31,6 +31,9 @@ gem 'rack-timeout', '~> 0.2.4'
 
 group :test do
   gem 'shoulda-matchers', '~> 2.8.0', require: false
+  gem 'capybara', '~> 2.4.4'
+  gem 'database_cleaner', '~> 1.4.1'
+  gem 'rspec-mocks', '~> 3.2.1'
 end
 
 group :development, :test do
@@ -39,8 +42,6 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.0.0'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rspec-rails', '~> 3.0'
-  gem 'capybara', '~> 2.4.4'
-  gem 'database_cleaner', '~> 1.4.1'
   gem 'faker', '~> 1.4.3'
   gem 'bullet', '~> 4.14.6'
 end
