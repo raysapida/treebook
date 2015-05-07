@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 DEFAULT_INSECURE_PASSWORD = 'mikethefrog1'
 
 User.create({
@@ -67,7 +59,28 @@ nick.statuses.create(content: "Hello from the internet!")
 mike.statuses.create(content: "I want to learn html javapress")
 ryan.statuses.create(content: "Treebook is awesome!")
 
-UserFriendship.request(seed_user, jim).accept!
-UserFriendship.request(seed_user, nick).block!
-UserFriendship.request(seed_user, mike)
-UserFriendship.request(ryan, seed_user)
+# UserFriendship.request(seed_user, jim).accept!
+# UserFriendship.request(seed_user, nick).block!
+# UserFriendship.request(seed_user, mike)
+# UserFriendship.request(ryan, seed_user)
+
+10.times do |n|
+  first_name  = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  profile_name = Faker::Internet.user_name.gsub(/[.]/, "_")
+  email = "example-#{n+1}@railstutorial.org"
+  password = "password"
+  User.create!(first_name:  first_name,
+               last_name: last_name,
+               profile_name: profile_name,
+               email: email,
+               password:              password,
+               password_confirmation: password,)
+end
+
+fake_people = User.last(10)
+20.times do
+    content = Faker::Lorem.sentence(5)
+      fake_people.each { |user| user.statuses.create!(content: content) }
+end
+
