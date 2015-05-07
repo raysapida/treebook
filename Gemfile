@@ -37,8 +37,12 @@ group :test do
   gem 'formulaic', '~> 0.2.0'
 end
 
-group :development, :test do
+group :development do
   gem 'pry-rails', '~> 0.3.2'
+  gem 'bundler-audit', '~> 0.3.1'
+end
+
+group :development, :test do
   gem 'pry-byebug', '~> 2.0.0'
   gem 'dotenv-rails', '~> 2.0.0'
   gem 'factory_girl_rails', '~> 4.5.0'
