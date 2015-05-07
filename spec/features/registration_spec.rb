@@ -8,6 +8,15 @@ describe 'the registration process', type: :feature do
     click_link 'Register'
     expect(page).to have_content('Your Information')
 
+    # Examples of using formulaic gem
+    # fill_form(:user, attributes_for(:user))
+    # fill_form(:user, :new, { first_name: 'Francis',
+    #                          last_name: 'Asterisk',
+    #                          profile_name: 'Pacman',
+    #                          email: 'pacman@mustache.com',
+    #                          password: 'password',
+    #                          password_confirmation: 'password'})
+
     fill_in 'user[first_name]', with: 'Francis'
     fill_in 'user[last_name]', with: 'Asterisk'
     fill_in 'user[profile_name]', with: 'Pacman'

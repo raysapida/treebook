@@ -34,6 +34,7 @@ group :test do
   gem 'capybara', '~> 2.4.4'
   gem 'database_cleaner', '~> 1.4.1'
   gem 'rspec-mocks', '~> 3.2.1'
+  gem 'formulaic', '~> 0.2.0'
 end
 
 group :development, :test do
