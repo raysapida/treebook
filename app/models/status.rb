@@ -8,4 +8,6 @@ class Status < ActiveRecord::Base
     length: { minimum: 2 }
 
   validates :user_id, presence: true
+
+  self.per_page = 25
 end

@@ -64,10 +64,10 @@ ryan.statuses.create(content: "Treebook is awesome!")
 # UserFriendship.request(seed_user, mike)
 # UserFriendship.request(ryan, seed_user)
 
-10.times do |n|
+100.times do |n|
   first_name  = Faker::Name.first_name
   last_name = Faker::Name.last_name
-  profile_name = Faker::Internet.user_name.gsub(/[.]/, "_")
+  profile_name = "#{Faker::Internet.user_name.gsub(/[.]/, "_")}#{n}"
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
   User.create!(first_name:  first_name,
@@ -78,7 +78,7 @@ ryan.statuses.create(content: "Treebook is awesome!")
                password_confirmation: password,)
 end
 
-fake_people = User.last(10)
+fake_people = User.last(100)
 20.times do
     content = Faker::Lorem.sentence(5)
       fake_people.each { |user| user.statuses.create!(content: content) }

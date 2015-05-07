@@ -3,7 +3,8 @@ class StatusesController < ApplicationController
   before_action :set_status, only: [:show, :edit, :update, :destroy]
 
   def index
-    @statuses = Status.order('created_at desc').all
+    params[:page] ||=1
+    @statuses = Status.order('created_at desc').paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
