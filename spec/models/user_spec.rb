@@ -21,7 +21,9 @@ describe User do
   it { should validate_presence_of(:first_name)}
   it { should validate_presence_of(:last_name)}
   it { should validate_presence_of(:profile_name)}
+  it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:profile_name)}
+  it { should validate_uniqueness_of(:email)}
   it { should validate_attachment_content_type(:avatar).
        allowing('image/png', 'image/gif', 'image/jpeg', 'image/bmp').
        rejecting('text/plain', 'text/xml') }
@@ -29,6 +31,13 @@ describe User do
   it { should_not allow_value('ex@mple').for(:profile_name) }
   it { should_not allow_value('ex.ample').for(:profile_name) }
   it { should_not allow_value('exam ple').for(:profile_name) }
+
+  it { should_not allow_value('"Fred Bloggs"@iana.org').for(:email) }
+  it { should_not allow_value('"Doug \"Ace\" L."@iana.org').for(:email) }
+  it { should_not allow_value('first.last@example.123').for(:email) }
+  it { should_not allow_value('test@example').for(:email) }
+  it { should_not allow_value('"Ima Fool"@iana.org').for(:email) }
+  it { should_not allow_value('email@111.222.333.44444').for(:email) }
 
   it 'has a valid factory' do
     expect(user).to be_valid

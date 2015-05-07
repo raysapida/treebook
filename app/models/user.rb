@@ -63,35 +63,38 @@ class User < ActiveRecord::Base
       with: /\A[a-zA-Z0-9_\-]+\z/,
       message: 'Must be formatted correctly.'
     }
-    has_many :albums
-    has_many :pictures
-    has_many :activities
 
-    def full_name
-      first_name + ' ' + last_name
-    end
+  validates :email, email: true, uniqueness: true
 
-    def to_param
-      profile_name
-    end
+  has_many :albums
+  has_many :pictures
+  has_many :activities
 
-    def gravatar_url
-      stripped_email = email.strip
-      downcased_email = stripped_email.downcase
-      hash = Digest::MD5.hexdigest(downcased_email)
+  def full_name
+    first_name + ' ' + last_name
+  end
 
-      "http://gravatar.com/avatar/#{hash}"
-    end
+  def to_param
+    profile_name
+  end
 
-    def has_blocked?(other_user)
-      blocked_friends.include?(other_user)
-    end
+  def gravatar_url
+    stripped_email = email.strip
+    downcased_email = stripped_email.downcase
+    hash = Digest::MD5.hexdigest(downcased_email)
 
-    def create_activity(item, action)
-      activity = activities.new
-      activity.targetable = item
-      activity.action = action
-      activity.save
-      activity
-    end
+    "http://gravatar.com/avatar/#{hash}"
+  end
+
+  def has_blocked?(other_user)
+    blocked_friends.include?(other_user)
+  end
+
+  def create_activity(item, action)
+    activity = activities.new
+    activity.targetable = item
+    activity.action = action
+    activity.save
+    activity
+  end
 end

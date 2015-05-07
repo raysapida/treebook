@@ -26,6 +26,7 @@ gem 'rack-attack', '~> 4.2.0'
 gem 'redcarpet', '~> 3.2.2'
 gem 'pygments.rb', '~> 0.6.2'
 gem 'haml-rails', '~> 0.9.0'
+gem 'email_validator', '~> 1.5.0'
 
 group :test do
   gem 'shoulda-matchers', '~> 2.8.0', require: false
