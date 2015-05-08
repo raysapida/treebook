@@ -29,14 +29,19 @@ describe UserFriendshipsController do
           )
   }
 
-  let(:blocked_friendship) {
-    create(:blocked_user_friendships,
-           user: original,
-           friend: create(:user,
-                          first_name: 'Blocked',
-                          last_name: 'Friend')
-          )
-  }
+  describe 'check factories are valid' do
+    it 'pending friendship' do
+      expect(pending_friendship).to be_valid
+    end
+
+    it 'accepted friendship' do
+      expect(accepted_friendship).to be_valid
+    end
+
+    it 'requested friendship' do
+      expect(requested_friendship).to be_valid
+    end
+  end
 
   describe 'GET index' do
     it 'without a signed in user' do
@@ -135,4 +140,13 @@ describe UserFriendshipsController do
       end
     end
   end
+
+  describe '#accept' do
+    context 'when not logged in' do
+      it 'redirect to login page' do
+        put :accept, id: 1
+
+        expect(response).to redirect_to(login_path)
+      end
+    end
 end

@@ -14,9 +14,5 @@ FactoryGirl.define do
     factory :accepted_user_friendship do
       state 'accepted'
     end
-
-    factory :blocked_user_friendship do
-      state 'blocked'
-    end
   end
 end
