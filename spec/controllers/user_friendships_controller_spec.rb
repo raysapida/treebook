@@ -33,17 +33,6 @@ describe UserFriendshipsController do
                                    )
       expect(requested_friendship).to be_valid
     end
-
-    it 'blocked friendship' do
-      pending('Figure out why the factory works in model but not in controller')
-      blocked_friendship = create(:blocked_user_friendship,
-                                  user: original,
-                                  friend: create(:user,
-                                                 first_name: 'Blocked',
-                                                 last_name: 'Friend')
-                                 )
-      expect(blocked_friendship).to be_valid
-    end
   end
 
   describe 'GET index' do
@@ -229,8 +218,8 @@ describe '#destroy' do
   context 'when logged in' do
     let(:friend) { create(:user) }
     let!(:accepted_friendship) { create(:accepted_user_friendship,
-                                       user: original,
-                                       friend: friend)
+                                        user: original,
+                                        friend: friend)
     }
 
     before(:each) do
@@ -249,6 +238,45 @@ describe '#destroy' do
       delete :destroy, id: accepted_friendship
 
       expect(flash[:success]).to eq('Friendship destroyed')
+    end
+  end
+end
+
+
+describe '#block' do
+  context 'when not logged in' do
+    it 'redirect to login page' do
+      put :block, id: 1
+
+      expect(response).to redirect_to(login_path)
+    end
+  end
+
+  context 'when logged in' do
+    let(:friend) { create(:user) }
+    let(:friendship) { create(:pending_user_friendship,
+                              user: original,
+                              friend: friend)
+    }
+
+    before(:each) do
+      create(:pending_user_friendship, user: friend, friend: original)
+      sign_in :user, original
+
+      put :block, id: friendship
+      friendship.reload
+    end
+
+    it 'should assign friendship to user_friendship' do
+      expect(assigns(:user_friendship)).to eq(friendship)
+    end
+
+    it 'should change state to blocked' do
+      expect(friendship.state).to eq('blocked')
+    end
+
+    it 'should flash a success message' do
+      expect(flash[:success]).to eq("You have blocked #{friendship.friend.first_name}")
     end
   end
 end

@@ -21,7 +21,7 @@ class UserFriendshipsController < ApplicationController
   def block
     @user_friendship = current_user.user_friendships.find(params[:id])
     if @user_friendship.block!
-      flash[:success] = "You have blocked #{@user_friendship.friend.first_name}."
+      flash[:success] = "You have blocked #{@user_friendship.friend.first_name}"
     else
       flash[:error] = "That friendship could not be blocked."
     end

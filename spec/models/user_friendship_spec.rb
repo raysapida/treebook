@@ -34,17 +34,4 @@ describe UserFriendship do
 
     expect(friendship[:state]).to eq('blocked')
   end
-
-  it 'allow UserFriendship to be destroyed' do
-    pending('Cannot delete from model, may need controller to verify user')
-    user = create(:user)
-    friend = create(:user)
-
-    friendship = UserFriendship.request(user, friend)
-    friendship.save
-    friendship.delete
-    friendship.save
-
-    expect(friendship).to be_nil
-  end
 end
