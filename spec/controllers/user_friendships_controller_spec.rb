@@ -169,6 +169,24 @@ describe UserFriendshipsController do
         expect(flash[:success]).to eq("You are now friends with #{pending_friendship.friend.first_name}")
       end
     end
+
+    context 'creates an activity' do
+      let(:friend) { create(:user) }
+      let(:pending_friendship) { create(:pending_user_friendship,
+                                        user: original,
+                                        friend: friend)
+      }
+
+      it 'with proper parameters' do
+        create(:pending_user_friendship, user: friend, friend: original)
+        sign_in :user, original
+
+        expect {
+          put :accept, id: pending_friendship
+          pending_friendship.reload
+        }.to change(Activity, :count).by(1)
+      end
+    end
   end
 
   describe '#edit' do

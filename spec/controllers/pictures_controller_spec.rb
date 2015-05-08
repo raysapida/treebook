@@ -143,6 +143,16 @@ RSpec.describe PicturesController, type: :controller do
 
         expect(response).to redirect_to(album_pictures_path(album))
       end
+
+      it "creates an activity" do
+        sign_in :user, album.user
+
+        expect {
+          post :create, {picture: valid_attributes,
+                         profile_name: album.user,
+                         album_id: album}, valid_session
+        }.to change(Activity, :count).by(1)
+      end
     end
 
     context "with invalid params" do
@@ -203,9 +213,9 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, picture.album.user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: new_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: new_attributes}, valid_session
         picture.reload
 
         expect(picture.caption).to eq('New caption')
@@ -216,9 +226,9 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, picture.album.user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: valid_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: valid_attributes}, valid_session
 
         expect(assigns(:picture)).to eq(picture)
       end
@@ -227,9 +237,9 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, picture.album.user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: valid_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: valid_attributes}, valid_session
 
         expect(flash[:notice]).to match(/Picture was successfully updated./)
       end
@@ -238,11 +248,22 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, picture.album.user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: valid_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: valid_attributes}, valid_session
 
         expect(response).to redirect_to(album_pictures_path(picture.album))
+      end
+
+      it 'creates an activity' do
+        sign_in :user, picture.album.user
+
+        expect {
+          put :update, { profile_name: picture.album.user,
+                         album_id: picture.album,
+                         id: picture,
+                         picture: valid_attributes}, valid_session
+        }.to change(Activity, :count).by(1)
       end
     end
 
@@ -251,9 +272,9 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, picture.album.user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: invalid_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: invalid_attributes}, valid_session
 
         expect(assigns(:picture)).to eq(picture)
       end
@@ -262,9 +283,9 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, picture.album.user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: invalid_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: invalid_attributes}, valid_session
 
         expect(response).to render_template("edit")
       end
@@ -275,9 +296,9 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, different_user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: valid_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: valid_attributes}, valid_session
 
         expect(flash[:error]).to match(/You don't have permission to do that./)
       end
@@ -286,9 +307,9 @@ RSpec.describe PicturesController, type: :controller do
         sign_in :user, different_user
 
         put :update, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture,
-                     picture: valid_attributes}, valid_session
+                       album_id: picture.album,
+                       id: picture,
+                       picture: valid_attributes}, valid_session
 
         expect(response).to redirect_to(album_pictures_path(picture.album))
       end
@@ -324,6 +345,16 @@ RSpec.describe PicturesController, type: :controller do
                         id: picture}, valid_session
 
       expect(response).to redirect_to(album_pictures_path(picture.album))
+    end
+
+    it "creates an activity" do
+      sign_in :user, picture.album.user
+
+      expect {
+        delete :destroy, {profile_name: picture.album.user,
+                          album_id: picture.album,
+                          id: picture}, valid_session
+      }.to change(Activity, :count).by(1)
     end
 
     context "with incorrect signed in user" do

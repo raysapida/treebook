@@ -82,6 +82,15 @@ RSpec.describe AlbumsController, type: :controller do
 
         expect(response).to redirect_to(Album.last)
       end
+
+      it "creates an activivy" do
+        user = create(:user)
+        sign_in :user, user
+
+        expect {
+          post :create, {:album => valid_attributes, profile_name: user}, valid_session
+        }.to change(Activity, :count).by(1)
+      end
     end
 
     context "with invalid params" do
@@ -137,6 +146,15 @@ RSpec.describe AlbumsController, type: :controller do
 
         expect(response).to redirect_to(album_pictures_path(album))
       end
+
+      it "creates an activity" do
+        album = create(:album)
+        sign_in :user, album.user
+
+        expect {
+          put :update, {id: album, album: valid_attributes, profile_name: album.user}, valid_session
+        }.to change(Activity, :count).by(1)
+      end
     end
 
     context "with invalid params" do
@@ -176,6 +194,15 @@ RSpec.describe AlbumsController, type: :controller do
 
       delete :destroy, {id: album, profile_name: album.user}, valid_session
       expect(response).to redirect_to(albums_url)
+    end
+
+    it "creates an activity" do
+      album = create(:album)
+      sign_in :user, album.user
+
+      expect {
+        delete :destroy, {id: album, profile_name: album.user}, valid_session
+      }.to change(Activity, :count).by(1)
     end
   end
 

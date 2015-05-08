@@ -94,7 +94,7 @@ class StatusesController < ApplicationController
     params.require(:status).permit(:content, :attachment,  document_attributes: [:attachment, :remove_attachment] ) if params[:status]
   end
 
-  def document_params 
+  def document_params
     params.permit(document_attributes: :attachment)
   end
 end

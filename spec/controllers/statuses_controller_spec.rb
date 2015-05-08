@@ -82,6 +82,15 @@ RSpec.describe StatusesController, type: :controller do
 
         expect(response).to redirect_to(Status.last)
       end
+
+      it "creates an activity" do
+        user = create(:user)
+        sign_in :user, user
+
+        expect {
+          post :create, {:status => valid_attributes}, valid_session
+        }.to change(Activity, :count).by(1)
+      end
     end
 
     context "with invalid params" do
@@ -138,6 +147,15 @@ RSpec.describe StatusesController, type: :controller do
 
         expect(response).to redirect_to(status)
       end
+
+      it "creates an activity" do
+        status = create(:status)
+        sign_in :user, status.user
+
+        expect {
+          put :update, {id: status, status: valid_attributes}, valid_session
+        }.to change(Activity, :count).by(1)
+      end
     end
 
     context "with invalid params" do
@@ -177,6 +195,15 @@ RSpec.describe StatusesController, type: :controller do
 
       delete :destroy, {id: status}, valid_session
       expect(response).to redirect_to(statuses_url)
+    end
+
+    it "creates an activity" do
+      status = create(:status)
+      sign_in :user, status.user
+
+      expect {
+        delete :destroy, {id: status}, valid_session
+      }.to change(Activity, :count).by(1)
     end
   end
 
