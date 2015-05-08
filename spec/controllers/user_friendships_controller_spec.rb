@@ -181,4 +181,76 @@ describe UserFriendshipsController do
       end
     end
   end
+
+  describe '#edit' do
+    context 'when not logged in' do
+      it 'redirect to login page' do
+        put :edit, id: 1
+
+        expect(response).to redirect_to(login_path)
+      end
+    end
+
+    context 'when logged in' do:d
+    let(:pending_friendship) { create(:pending_user_friendship,
+                                      user: original)
+    }
+
+    before(:each) do
+      sign_in :user, original
+
+      put :edit, id: pending_friendship.friend.profile_name
+      pending_friendship.reload
+    end
+
+    it 'assign pending_friendship to user_friendship' do
+      expect(assigns(:user_friendship)).to eq(pending_friendship)
+    end
+
+    it 'the response should be successful' do
+      expect(response).to be_success
+    end
+
+    it 'assign friend' do
+      expect(assigns(:friend)).to eq(pending_friendship.friend)
+    end
+  end
+end
+
+describe '#destroy' do
+  context 'when not logged in' do
+    it 'redirect to login page' do
+      delete :destroy, id: 1
+
+      expect(response).to redirect_to(login_path)
+    end
+  end
+
+  context 'when logged in' do
+    let(:friend) { create(:user) }
+    let!(:accepted_friendship) { create(:accepted_user_friendship,
+                                       user: original,
+                                       friend: friend)
+    }
+
+    before(:each) do
+      create(:accepted_user_friendship, user: friend, friend: original)
+      sign_in :user, original
+
+    end
+
+    it 'delete user friendship' do
+      expect {
+        delete :destroy, id: accepted_friendship
+      }.to change(UserFriendship, :count).by(-2)
+    end
+
+    it 'should flash a success message' do
+      delete :destroy, id: accepted_friendship
+
+      expect(flash[:success]).to eq('Friendship destroyed')
+    end
+  end
+end
+
 end
