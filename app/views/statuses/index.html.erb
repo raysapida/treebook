@@ -8,10 +8,10 @@
   <% if can_display_status?(status) %>
     <div class="status media">
       <% if status.user.avatar_file_name.nil? %>
-        <%= avatar_profile_link status.user, {}, class: 'pull-left gravatar' %>
+        <%= avatar_profile_link status.user, {alt: status.user.profile_name}, class: 'pull-left gravatar' %>
       <% else %>
         <%= link_to(image_tag(status.user.avatar.url(:thumb),
-                              alt: status.user.full_name,
+                              alt: status.user.profile_name,
                               class: 'pull-left avatar'),
                               profile_path(status.user)) %>
       <% end %>
