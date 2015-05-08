@@ -19,6 +19,22 @@ RSpec.describe StatusesController, type: :controller do
 
       expect(assigns(:statuses)).to eq([status])
     end
+
+    context 'signed in with blocked friends' do
+      let(:user) { create(:user) }
+      let(:frienship) { create(:blocked_user_friendship, user: user) }
+
+      it "should not display blocked user's posts " do
+        pending('blocking statuses from blocked friends not implemented yet')
+        blocked_status = frienship.friend.statuses.create(content: 'Blocked status')
+        status = create(:status, content: 'Non-blocked status')
+
+        sign_in :user, user
+        get :index, {}, valid_session
+
+        expect(assigns(:statuses)).to eq([status])
+      end
+    end
   end
 
   describe "GET #show" do
