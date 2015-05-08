@@ -7,7 +7,7 @@ class PicturesController < ApplicationController
   before_filter :add_breadcrumbs
 
   def index
-    @pictures = @album.pictures.all
+    @pictures = @album.pictures.all.includes(:user)
 
     respond_to do |format|
       format.html

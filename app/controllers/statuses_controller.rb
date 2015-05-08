@@ -6,9 +6,11 @@ class StatusesController < ApplicationController
     params[:page] ||=1
     if user_signed_in?
       @statuses = Status.where.not(user: current_user.blocked_friends).
-        order('created_at desc').paginate(:page => params[:page])
+        order('created_at desc').
+        paginate(:page => params[:page]).includes(:user, :document)
     else
-      @statuses = Status.order('created_at desc').paginate(:page => params[:page])
+      @statuses = Status.order('created_at desc').
+        paginate(:page => params[:page]).includes(:user, :document)
     end
     respond_to do |format|
       format.html # index.html.erb

@@ -6,7 +6,7 @@ class AlbumsController < ApplicationController
   before_filter :add_breadcrumbs
 
   def index
-    @albums = Album.all
+    @albums = Album.all.includes(:user)
   end
 
   def show
