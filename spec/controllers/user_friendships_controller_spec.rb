@@ -2,44 +2,47 @@ require 'rails_helper'
 
 describe UserFriendshipsController do
   let(:original) { create(:user) }
-  let(:pending_friendship) {
-    create(:pending_user_friendship,
-           user: original,
-           friend: create(:user,
-                          first_name: 'Pending',
-                          last_name: 'Friend')
-          )
-  }
-
-  let(:accepted_friendship) {
-    create(:accepted_user_friendship,
-           user: original,
-           friend: create(:user,
-                          first_name: 'Active',
-                          last_name: 'Friend')
-          )
-  }
-
-  let(:requested_friendship) {
-    create(:requested_user_friendship,
-           user: original,
-           friend: create(:user,
-                          first_name: 'Requested',
-                          last_name: 'Friend')
-          )
-  }
 
   describe 'check factories are valid' do
     it 'pending friendship' do
+      pending_friendship = create(:pending_user_friendship,
+                                  user: original,
+                                  friend: create(:user,
+                                                 first_name: 'Pending',
+                                                 last_name: 'Friend')
+                                 )
       expect(pending_friendship).to be_valid
     end
 
     it 'accepted friendship' do
+      accepted_friendship = create(:accepted_user_friendship,
+                                   user: original,
+                                   friend: create(:user,
+                                                  first_name: 'Active',
+                                                  last_name: 'Friend')
+                                  )
       expect(accepted_friendship).to be_valid
     end
 
     it 'requested friendship' do
+      requested_friendship = create(:requested_user_friendship,
+                                    user: original,
+                                    friend: create(:user,
+                                                   first_name: 'Requested',
+                                                   last_name: 'Friend')
+                                   )
       expect(requested_friendship).to be_valid
+    end
+
+    it 'blocked friendship' do
+      pending('Figure out why the factory works in model but not in controller')
+      blocked_friendship = create(:blocked_user_friendship,
+                                  user: original,
+                                  friend: create(:user,
+                                                 first_name: 'Blocked',
+                                                 last_name: 'Friend')
+                                 )
+      expect(blocked_friendship).to be_valid
     end
   end
 
@@ -149,4 +152,33 @@ describe UserFriendshipsController do
         expect(response).to redirect_to(login_path)
       end
     end
+
+    context 'when logged in' do
+      let(:friend) { create(:user) }
+      let(:pending_friendship) { create(:pending_user_friendship,
+                                        user: original,
+                                        friend: friend)
+      }
+
+      before(:each) do
+        create(:pending_user_friendship, user: friend, friend: original)
+        sign_in :user, original
+
+        put :accept, id: pending_friendship
+        pending_friendship.reload
+      end
+
+      it 'should assign pending_friendship to user_friendship' do
+        expect(assigns(:user_friendship)).to eq(pending_friendship)
+      end
+
+      it 'should change state to accepted' do
+        expect(pending_friendship.state).to eq('accepted')
+      end
+
+      it 'should flash a success message' do
+        expect(flash[:success]).to eq("You are now friends with #{pending_friendship.friend.first_name}")
+      end
+    end
+  end
 end
