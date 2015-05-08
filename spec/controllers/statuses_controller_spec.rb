@@ -25,7 +25,6 @@ RSpec.describe StatusesController, type: :controller do
       let(:frienship) { create(:blocked_user_friendship, user: user) }
 
       it "should not display blocked user's posts " do
-        pending('blocking statuses from blocked friends not implemented yet')
         blocked_status = frienship.friend.statuses.create(content: 'Blocked status')
         status = create(:status, content: 'Non-blocked status')
 
