@@ -16,5 +16,29 @@ describe ProfilesController do
 
       expect(response).to have_http_status(404)
     end
+
+    it 'that variables are assigned on successful profile viewing' do
+      other = create(:user)
+
+      sign_in :user, user
+      get :show, id: other.profile_name
+
+      expect(assigns(:user)).to eq(other)
+    end
+
+    it "only shows the correct user's statuses" do
+      other = create(:user)
+      create(:status, user: other)
+      create(:status, user: other)
+      create(:status, user: other)
+
+      sign_in :user, user
+      get :show, id: other.profile_name
+
+      assigns(:statuses).each do |status|
+        expect(status.user).to eq(other)
+      end
+    end
   end
+
 end
