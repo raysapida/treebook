@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe "access top page", type: :feature do
+  before do
+    Rails.application.env_config["devise.mapping"] = Devise.mappings[:user] # If using Devise
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
+  end
+
   it "can sign in user with Twitter account" do
     visit '/'
     expect(page).to have_content("Sign in with Twitter")
@@ -16,7 +21,7 @@ describe "access top page", type: :feature do
     visit '/'
     expect(page).to have_content("Sign in with Twitter")
     click_link "Sign in with Twitter"
-    expect(page).to have_content('Authentication failed.')
+    expect(page).to have_content('Invalid credentials')
   end
 
 end

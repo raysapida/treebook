@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     get '/logout', to: 'devise/sessions#destroy', as: :logout
   end
 
-  devise_for :users, skip: [:sessions], controllers: { omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations'}
+  devise_for :users, skip: [:sessions],
+    controllers: { omniauth_callbacks: 'omniauth_callbacks',
+                   registrations: 'registrations'}
 
   as :user do
     get "/login" => 'devise/sessions#new', as: :new_user_session
