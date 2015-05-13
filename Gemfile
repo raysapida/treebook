@@ -28,7 +28,8 @@ gem 'pygments.rb', '~> 0.6.2'
 gem 'haml-rails', '~> 0.9.0'
 gem 'email_validator', '~> 1.5.0'
 gem 'rack-timeout', '~> 0.2.4'
-gem 'rack-mini-profiler', require: false
+gem 'rack-mini-profiler', '~> 0.9.3', require: false
+gem 'flamegraph', '~> 0.1.0'
 
 group :test do
   gem 'shoulda-matchers', '~> 2.8.0', require: false
