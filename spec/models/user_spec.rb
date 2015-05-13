@@ -16,6 +16,7 @@ describe User do
   it { should have_many(:albums) }
   it { should have_many(:pictures) }
   it { should have_many(:activities)  }
+  it { should have_many(:identities) }
   it { should have_attached_file(:avatar) }
 
   it { should validate_presence_of(:first_name)}
