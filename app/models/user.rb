@@ -53,18 +53,20 @@ class User < ActiveRecord::Base
   }
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  validates :first_name, presence: true
-
-  validates :last_name, presence: true
-
+  validates_presence_of :first_name
+  validates_presence_of :last_name
   validates :profile_name, presence: true,
     uniqueness: true,
     format: {
       with: /\A[a-zA-Z0-9_\-]+\z/,
       message: 'Must be formatted correctly.'
     }
-
-  validates :email, email: true, uniqueness: true
+  validates :email, email: true, uniqueness: true, allow_blank: true, if: :email_changed?
+  validates_presence_of   :email, if: :email_required?
+  validates_uniqueness_of :email, allow_blank: true, if: :email_changed?
+  validates_presence_of     :password, if: :password_required?
+  validates_confirmation_of :password, if: :password_required?
+  validates_length_of       :password, within: Devise.password_length, allow_blank: true
 
   has_many :albums
   has_many :pictures
@@ -97,4 +99,14 @@ class User < ActiveRecord::Base
     activity.save
     activity
   end
+
+  def password_required?
+    return false if email.blank?
+    !persisted? || !password.nil? || !password_confirmation.nil?
+  end
+
+  def email_required?
+    true
+  end
+
 end
