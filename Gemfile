@@ -30,6 +30,14 @@ gem 'email_validator', '~> 1.5.0'
 gem 'rack-timeout', '~> 0.2.4'
 gem 'rack-mini-profiler', '~> 0.9.3', require: false
 gem 'flamegraph', '~> 0.1.0'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-instagram'
+gem 'twitter'
+gem 'instagram'
+gem 'omniauth-google-oauth2'
+gem 'google-api-client', require: 'google/api_client'
 
 group :test do
   gem 'shoulda-matchers', '~> 2.8.0', require: false

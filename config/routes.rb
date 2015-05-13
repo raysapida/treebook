@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	resources :activities, only: [:index]
+  resources :activities, only: [:index]
 
   as :user do
     get '/register', to: 'devise/registrations#new', as: :register
@@ -14,39 +14,39 @@ Rails.application.routes.draw do
     post "/login" => 'devise/sessions#create', as: :user_session
     delete "/logout" => 'devise/sessions#destroy', as: :destroy_user_session
   end
-	
-	resources :user_friendships do 
-		member do 
-			put :accept
-			put :block
-		end
-	end
-	
+
+  resources :user_friendships do 
+    member do 
+      put :accept
+      put :block
+    end
+  end
+
   resources :statuses
-	get 'feed', to: 'statuses#index', as: :feed
-	
-	authenticated :user do
-  	root :to => "statuses#index"
-	end
-	unauthenticated :user do
-  	devise_scope :user do 
-    	get "/" => "devise/sessions#new"
-  	end
-	end
-	
-	# root :to => 'high_voltage/pages#show', :id => 'home'
-	
-	scope ":profile_name" do
-		resources :albums do 
-			resources :pictures
-		end
-	end
+  get 'feed', to: 'statuses#index', as: :feed
+
+  authenticated :user do
+    root :to => "statuses#index"
+  end
+  unauthenticated :user do
+    devise_scope :user do 
+      get "/" => "devise/sessions#new"
+    end
+  end
+
+  # root :to => 'high_voltage/pages#show', :id => 'home'
+
+  scope ":profile_name" do
+    resources :albums do 
+      resources :pictures
+    end
+  end
 
   namespace :blog do
     resources :articles, path: '', only: [:index, :show]
   end
-	
-	get '/:id', to: 'profiles#show', as: :profile
-	
-	get 'pages/about' => 'high_voltage/pages#show', id: 'about'
+
+  get '/:id', to: 'profiles#show', as: :profile
+
+  get 'pages/about' => 'high_voltage/pages#show', id: 'about'
 end
