@@ -1,3 +1,7 @@
+<% if current_user.google_oauth2 %>
+  <%= link_to "Upgrade Access", user_omniauth_upgrade_path( :google_oauth2 ) %>
+<% end %>
+
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, class: 'form-horizontal'}) do |f| %>
   <%= devise_error_messages! %>
 

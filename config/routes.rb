@@ -15,8 +15,8 @@ Rails.application.routes.draw do
     delete "/logout" => 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  resources :user_friendships do 
-    member do 
+  resources :user_friendships do
+    member do
       put :accept
       put :block
     end
@@ -29,15 +29,20 @@ Rails.application.routes.draw do
     root :to => "statuses#index"
   end
   unauthenticated :user do
-    devise_scope :user do 
+    devise_scope :user do
       get "/" => "devise/sessions#new"
     end
+  end
+
+  devise_scope :user do
+    get '/users/auth/:provider/upgrade' => 'omniauth_callbacks#upgrade', as: :user_omniauth_upgrade
+    get '/users/auth/:provider/setup', :to => 'omniauth_callbacks#setup'
   end
 
   # root :to => 'high_voltage/pages#show', :id => 'home'
 
   scope ":profile_name" do
-    resources :albums do 
+    resources :albums do
       resources :pictures
     end
   end
