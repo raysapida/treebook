@@ -38,6 +38,7 @@ gem 'twitter'
 gem 'instagram'
 gem 'omniauth-google-oauth2'
 gem 'google-api-client', require: 'google/api_client'
+gem 'bootstrap-social-rails'
 
 group :test do
   gem 'shoulda-matchers', '~> 2.8.0', require: false
