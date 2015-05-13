@@ -12,7 +12,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'devise', '~> 3.4.0'
 gem 'simple_form', '>= 3.1.0.rc2'
-gem 'state_machine', :git => 'https://github.com/seuros/state_machine.git'
+gem 'state_machine', git: 'https://github.com/seuros/state_machine.git'
 gem 'draper', '~> 1.4.0'
 gem 'js-routes', '~> 0.9.9'
 gem 'paperclip', '>=3'
@@ -39,6 +39,7 @@ gem 'instagram', '~> 1.1.5'
 gem 'omniauth-google-oauth2', '~> 0.2.6'
 gem 'google-api-client', '~> 0.8.6', require: 'google/api_client'
 gem 'bootstrap-social-rails', '~> 4.8.0'
+gem 'faker', '~> 1.4.3'
 
 group :test do
   gem 'shoulda-matchers', '~> 2.8.0', require: false
@@ -59,7 +60,6 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.0.0'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rspec-rails', '~> 3.0'
-  gem 'faker', '~> 1.4.3'
   gem 'bullet', '~> 4.14.6'
 end
 
