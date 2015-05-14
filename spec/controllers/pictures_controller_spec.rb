@@ -23,99 +23,115 @@ RSpec.describe PicturesController, type: :controller do
 
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all pictures as @pictures" do
+  describe 'GET #index' do
+    before do
       get :index, { profile_name: picture.album.user,
                     album_id: picture.album }, valid_session
+    end
 
+    it 'assigns all pictures as @pictures' do
       expect(assigns(:pictures)).to eq([picture])
+    end
+
+    it 'render index template' do
+      expect(response).to render_template(:index)
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested picture as @picture" do
+  describe 'GET #show' do
+    before do
       get :show, { profile_name: picture.album.user,
                    album_id: picture.album,
                    id: picture }, valid_session
+    end
 
+    it 'assigns the requested picture as @picture' do
       expect(assigns(:picture)).to eq(picture)
+    end
+
+    it 'renders show template' do
+      expect(response).to render_template(:show)
     end
   end
 
-  describe "GET #new" do
-    context "with correct signed in user" do
-      it "assigns a new picture as @picture" do
+  describe 'GET #new' do
+    context 'with correct signed in user' do
+      before do
         sign_in :user, album.user
-
         get :new, { profile_name: album.user,
                     album_id: album }, valid_session
+      end
 
+      it 'assigns a new picture as @picture' do
         expect(assigns(:picture)).to be_a_new(Picture)
+      end
+
+      it 'renders new template' do
+        expect(response).to render_template(:new)
       end
     end
 
-    context "with incorrect signed in user" do
-      it "will flash an error message" do
+    context 'with incorrect signed in user' do
+      before do
         sign_in :user, different_user
 
         get :new, { profile_name: album.user,
                     album_id: album }, valid_session
+      end
 
+      it 'will flash an error message' do
         expect(flash[:error]).to match(/You don't have permission to do that./)
       end
 
-      it "will redirect to album" do
-        sign_in :user, different_user
-
-        get :new, { profile_name: album.user,
-                    album_id: album }, valid_session
-
+      it 'will redirect to album' do
         expect(response).to redirect_to(album_pictures_path(album))
       end
     end
   end
 
-  describe "GET #edit" do
-    context "with correct signed in user" do
-      it "assigns the requested picture as @picture" do
+  describe 'GET #edit' do
+    context 'with correct signed in user' do
+      before do
         sign_in :user, picture.album.user
-
         get :edit, { profile_name: picture.album.user,
                      album_id: picture.album,
                      id: picture }, valid_session
+      end
 
+      it 'assigns the requested picture as @picture' do
         expect(assigns(:picture)).to eq(picture)
+      end
+
+      it 'render edit template' do
+        expect(response).to render_template(:edit)
       end
     end
 
-    context "with incorrect signed in user" do
-      it "will flash an error message" do
+    context 'with incorrect signed in user' do
+      before do
         sign_in :user, different_user
-
         get :edit, { profile_name: picture.album.user,
                      album_id: picture.album,
                      id: picture }, valid_session
+      end
 
+      it 'will flash an error message' do
         expect(flash[:error]).to match(/You don't have permission to do that./)
       end
 
-      it "will redirect to album" do
-        sign_in :user, different_user
-
-        get :edit, { profile_name: picture.album.user,
-                     album_id: picture.album,
-                     id: picture }, valid_session
-
+      it 'will redirect to album' do
         expect(response).to redirect_to(album_pictures_path(picture.album))
       end
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Picture" do
+  describe 'POST #create' do
+    context 'with valid params' do
+      before do
         sign_in :user, album.user
+      end
 
+      it 'creates a new Picture' do
         expect {
           post :create, {picture: valid_attributes,
                          profile_name: album.user,
@@ -123,9 +139,7 @@ RSpec.describe PicturesController, type: :controller do
         }.to change(Picture, :count).by(1)
       end
 
-      it "assigns a newly created picture as @picture" do
-        sign_in :user, album.user
-
+      it 'assigns a newly created picture as @picture' do
         post :create, {picture: valid_attributes,
                        profile_name: album.user,
                        album_id: album}, valid_session
@@ -134,9 +148,7 @@ RSpec.describe PicturesController, type: :controller do
         expect(assigns(:picture)).to be_persisted
       end
 
-      it "redirects to the album of the created picture" do
-        sign_in :user, album.user
-
+      it 'redirects to the album of the created picture' do
         post :create, {picture: valid_attributes,
                        profile_name: album.user,
                        album_id: album}, valid_session
@@ -144,9 +156,7 @@ RSpec.describe PicturesController, type: :controller do
         expect(response).to redirect_to(album_pictures_path(album))
       end
 
-      it "creates an activity" do
-        sign_in :user, album.user
-
+      it 'creates an activity' do
         expect {
           post :create, {picture: valid_attributes,
                          profile_name: album.user,
@@ -155,53 +165,51 @@ RSpec.describe PicturesController, type: :controller do
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved picture as @picture" do
+    context 'with invalid params' do
+      before do
         sign_in :user, album.user
-
         post :create, {picture: invalid_attributes,
                        profile_name: album.user,
                        album_id: album}, valid_session
+      end
 
+      it 'assigns a newly created but unsaved picture as @picture' do
         expect(assigns(:picture)).to be_a_new(Picture)
       end
 
-      it "re-renders the 'new' template" do
-        sign_in :user, album.user
-
-        post :create, {picture: invalid_attributes,
-                       profile_name: album.user,
-                       album_id: album}, valid_session
-
-        expect(response).to render_template("new")
+      it 're-renders the new template' do
+        expect(response).to render_template('new')
       end
     end
 
-    context "with incorrect signed in user and valid attributes" do
-      it "will flash an error message" do
+    context 'with incorrect signed in user and valid attributes' do
+      before do
         sign_in :user, different_user
-
         post :create, {picture: valid_attributes,
                        profile_name: album.user,
                        album_id: album}, valid_session
+      end
 
+      it 'will flash an error message' do
         expect(flash[:error]).to match(/You don't have permission to do that./)
       end
 
-      it "will redirect to album" do
-        sign_in :user, different_user
-
-        post :create, {picture: valid_attributes,
-                       profile_name: album.user,
-                       album_id: album}, valid_session
-
+      it 'will redirect to album' do
         expect(response).to redirect_to(album_pictures_path(album))
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
+  describe 'PUT #update' do
+    context 'with valid params' do
+      before do
+        sign_in :user, picture.album.user
+        put :update, { profile_name: picture.album.user,
+                       album_id: picture.album,
+                       id: picture,
+                       picture: new_attributes}, valid_session
+      end
+
       let(:new_attributes) {
         { user_id: picture.album.user,
           album_id: picture.album,
@@ -209,55 +217,26 @@ RSpec.describe PicturesController, type: :controller do
           description: 'New description' }
       }
 
-      it "updates the requested picture" do
-        sign_in :user, picture.album.user
-
-        put :update, { profile_name: picture.album.user,
-                       album_id: picture.album,
-                       id: picture,
-                       picture: new_attributes}, valid_session
+      it 'updates the requested picture' do
         picture.reload
 
         expect(picture.caption).to eq('New caption')
         expect(picture.description).to eq('New description')
       end
 
-      it "assigns the requested picture as @picture" do
-        sign_in :user, picture.album.user
-
-        put :update, { profile_name: picture.album.user,
-                       album_id: picture.album,
-                       id: picture,
-                       picture: valid_attributes}, valid_session
-
+      it 'assigns the requested picture as @picture' do
         expect(assigns(:picture)).to eq(picture)
       end
 
       it 'flashes a notice that the update was succesfull' do
-        sign_in :user, picture.album.user
-
-        put :update, { profile_name: picture.album.user,
-                       album_id: picture.album,
-                       id: picture,
-                       picture: valid_attributes}, valid_session
-
         expect(flash[:notice]).to match(/Picture was successfully updated./)
       end
 
-      it "redirects to the picture" do
-        sign_in :user, picture.album.user
-
-        put :update, { profile_name: picture.album.user,
-                       album_id: picture.album,
-                       id: picture,
-                       picture: valid_attributes}, valid_session
-
+      it 'redirects to the picture' do
         expect(response).to redirect_to(album_pictures_path(picture.album))
       end
 
       it 'creates an activity' do
-        sign_in :user, picture.album.user
-
         expect {
           put :update, { profile_name: picture.album.user,
                          album_id: picture.album,
@@ -267,59 +246,49 @@ RSpec.describe PicturesController, type: :controller do
       end
     end
 
-    context "with invalid params" do
-      it "assigns the picture as @picture" do
+    context 'with invalid params' do
+      before do
         sign_in :user, picture.album.user
-
         put :update, { profile_name: picture.album.user,
                        album_id: picture.album,
                        id: picture,
                        picture: invalid_attributes}, valid_session
+      end
 
+      it 'assigns the picture as @picture' do
         expect(assigns(:picture)).to eq(picture)
       end
 
-      it "re-renders the 'edit' template" do
-        sign_in :user, picture.album.user
-
-        put :update, { profile_name: picture.album.user,
-                       album_id: picture.album,
-                       id: picture,
-                       picture: invalid_attributes}, valid_session
-
-        expect(response).to render_template("edit")
+      it 're-renders the edit template' do
+        expect(response).to render_template('edit')
       end
     end
 
-    context "with incorrect signed in user and valid attributes" do
-      it "will flash an error message" do
+    context 'with incorrect signed in user and valid attributes' do
+      before do
         sign_in :user, different_user
-
         put :update, { profile_name: picture.album.user,
                        album_id: picture.album,
                        id: picture,
                        picture: valid_attributes}, valid_session
+      end
 
+      it 'will flash an error message' do
         expect(flash[:error]).to match(/You don't have permission to do that./)
       end
 
-      it "will redirect to album" do
-        sign_in :user, different_user
-
-        put :update, { profile_name: picture.album.user,
-                       album_id: picture.album,
-                       id: picture,
-                       picture: valid_attributes}, valid_session
-
+      it 'will redirect to album' do
         expect(response).to redirect_to(album_pictures_path(picture.album))
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested picture" do
+  describe 'DELETE #destroy' do
+    before do
       sign_in :user, picture.album.user
+    end
 
+    it 'destroys the requested picture' do
       expect {
         delete :destroy, {profile_name: picture.album.user,
                           album_id: picture.album,
@@ -328,8 +297,6 @@ RSpec.describe PicturesController, type: :controller do
     end
 
     it 'flashes a notice when delete is succesfull' do
-      sign_in :user, picture.album.user
-
       delete :destroy, {profile_name: picture.album.user,
                         album_id: picture.album,
                         id: picture}, valid_session
@@ -337,9 +304,7 @@ RSpec.describe PicturesController, type: :controller do
       expect(flash[:notice]).to match(/Picture was successfully destroyed./)
     end
 
-    it "redirects to the album" do
-      sign_in :user, picture.album.user
-
+    it 'redirects to the album' do
       delete :destroy, {profile_name: picture.album.user,
                         album_id: picture.album,
                         id: picture}, valid_session
@@ -347,9 +312,7 @@ RSpec.describe PicturesController, type: :controller do
       expect(response).to redirect_to(album_pictures_path(picture.album))
     end
 
-    it "creates an activity" do
-      sign_in :user, picture.album.user
-
+    it 'creates an activity' do
       expect {
         delete :destroy, {profile_name: picture.album.user,
                           album_id: picture.album,
@@ -357,24 +320,19 @@ RSpec.describe PicturesController, type: :controller do
       }.to change(Activity, :count).by(1)
     end
 
-    context "with incorrect signed in user" do
-      it "will flash an error message" do
+    context 'with incorrect signed in user' do
+      before do
         sign_in :user, different_user
-
         delete :destroy, {profile_name: picture.album.user,
                           album_id: picture.album,
                           id: picture}, valid_session
+      end
 
+      it 'will flash an error message' do
         expect(flash[:error]).to match(/You don't have permission to do that./)
       end
 
-      it "will redirect to album" do
-        sign_in :user, different_user
-
-        delete :destroy, {profile_name: picture.album.user,
-                          album_id: picture.album,
-                          id: picture}, valid_session
-
+      it 'will redirect to album' do
         expect(response).to redirect_to(album_pictures_path(picture.album))
       end
     end

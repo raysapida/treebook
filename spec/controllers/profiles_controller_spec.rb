@@ -26,7 +26,7 @@ describe ProfilesController do
       expect(assigns(:user)).to eq(other)
     end
 
-    it "only shows the correct user's statuses" do
+    it 'only shows the correct user statuses' do
       other = create(:user)
       create(:status, user: other)
       create(:status, user: other)

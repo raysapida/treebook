@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe UserFriendshipsController do
   let(:original) { create(:user) }
+  let(:other) { create(:user) }
 
   describe 'check factories are valid' do
     it 'pending friendship' do
@@ -59,42 +60,39 @@ describe UserFriendshipsController do
       expect(response).to redirect_to(login_path)
     end
 
-    it 'with a signed in user' do
-      sign_in :user, original
+    context 'with a signed in user' do
+      before do
+        sign_in :user, original
+      end
 
-      get :new
+      it 'render new template' do
+        get :new
 
-      expect(response).to be_success
-    end
+        expect(response).to render_template(:new)
+      end
 
-    it 'with a signed in user without friend_id' do
-      sign_in :user, original
+      it 'with a signed in user without friend_id' do
+        get :new, {}
 
-      get :new, {}
+        expect(flash[:error]).to eq('Friend required')
+      end
 
-      expect(flash[:error]).to eq('Friend required')
-    end
+      it 'with a signed in user should assign correct friend' do
+        get :new, friend_id: other
 
-    it 'with a signed in user should assign correct friend' do
-      other = create(:user)
-      sign_in :user, original
+        expect(assigns(:user_friendship).friend).to eq(other)
+      end
 
-      get :new, friend_id: other
+      it 'with a signed in user should return 404 if friend not found' do
+        get :new, friend_id: 'invalid'
 
-      expect(assigns(:user_friendship).friend).to eq(other)
-    end
-
-    it 'with a signed in user should return 404 if friend not found' do
-      sign_in :user, original
-
-      get :new, friend_id: 'invalid'
-
-      expect(response.status).to eq(404)
+        expect(response.status).to eq(404)
+      end
     end
   end
 
   describe 'POST create' do
-    it 'with a signed in user and empty reques redirect to root' do
+    it 'with a signed in user and empty request redirect to root' do
       sign_in :user, original
 
       post :create
@@ -103,9 +101,7 @@ describe UserFriendshipsController do
     end
 
     context 'with correct friend and signed in user' do
-      let(:other) { create(:user) }
-
-      before(:each) do
+      before do
         sign_in :user, original
         post :create, user_friendship: { friend_id: other }
       end
@@ -149,10 +145,9 @@ describe UserFriendshipsController do
                                         friend: friend)
       }
 
-      before(:each) do
+      before do
         create(:pending_user_friendship, user: friend, friend: original)
         sign_in :user, original
-
         put :accept, id: pending_friendship
         pending_friendship.reload
       end
@@ -198,14 +193,13 @@ describe UserFriendshipsController do
       end
     end
 
-    context 'when logged in' do:d
+    context 'when logged in' do
     let(:pending_friendship) { create(:pending_user_friendship,
                                       user: original)
     }
 
-    before(:each) do
+    before do
       sign_in :user, original
-
       put :edit, id: pending_friendship.friend.profile_name
       pending_friendship.reload
     end
@@ -240,10 +234,9 @@ describe '#destroy' do
                                         friend: friend)
     }
 
-    before(:each) do
+    before do
       create(:accepted_user_friendship, user: friend, friend: original)
       sign_in :user, original
-
     end
 
     it 'delete user friendship' do
@@ -277,10 +270,9 @@ describe '#block' do
                               friend: friend)
     }
 
-    before(:each) do
+    before do
       create(:pending_user_friendship, user: friend, friend: original)
       sign_in :user, original
-
       put :block, id: friendship
       friendship.reload
     end
