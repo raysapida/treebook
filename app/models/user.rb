@@ -146,4 +146,8 @@ class User < ActiveRecord::Base
       @google_oauth2_client
     end
 
+    def is_admin?
+      self.email && self.admin##ENV['ADMIN_EMAILS'].to_s.include?(self.email)
+    end
+
 end
