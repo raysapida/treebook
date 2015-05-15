@@ -1,10 +1,11 @@
 ActiveAdmin.setup do |config|
   config.site_title = "Social Media"
-
-  # Set the link url for the title. For example, to take
-  # users to your main site. Defaults to no link.
-  #
-  # config.site_title_link = "/"
+  config.site_title_link = "/"
+  config.authentication_method = :authenticate_admin_user!
+  config.current_user_method = :current_user
+  config.logout_link_path = :destroy_user_session_path
+  config.logout_link_method = :delete
+  config.download_links = false
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
@@ -201,7 +202,4 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
-  config.current_user_method = :current_user
-  config.logout_link_path = :destroy_user_session_path
-  config.logout_link_method = :delete
 end

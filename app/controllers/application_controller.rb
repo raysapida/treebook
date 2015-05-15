@@ -34,4 +34,10 @@ class ApplicationController < ActionController::Base
   def authenticate_admin_user!
     redirect_to new_user_session_path unless current_user.try(:is_admin?)
   end
+
+  def authorize
+    if current_user.is_admin?
+      Rack::MiniProfiler.authorize_request
+    end
+  end
 end

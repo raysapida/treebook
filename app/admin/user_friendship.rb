@@ -9,4 +9,6 @@ ActiveAdmin.register UserFriendship do
     column :friend
     actions
   end
+
+  filter :state, as: :string, label: 'State'
 end
