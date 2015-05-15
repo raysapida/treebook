@@ -40,6 +40,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.6'
 gem 'google-api-client', '~> 0.8.6', require: 'google/api_client'
 gem 'bootstrap-social-rails', '~> 4.8.0'
 gem 'faker', '~> 1.4.3'
+gem 'activeadmin', github: 'gregbell/active_admin'
 
 group :test do
   gem 'shoulda-matchers', '~> 2.8.0', require: false
