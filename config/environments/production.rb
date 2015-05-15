@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.assets.precompile += ['active_admin.js', 'active_admin.css', 'active_admin/print.css']
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -21,7 +22,7 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or NGINX will already do this).
-  config.serve_static_files = false
+  config.serve_static_files = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -84,6 +85,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-	config.serve_static_assets = true
-	config.action_dispatch.x_sendfile_header = nil
+  config.serve_static_assets = true
+  config.action_dispatch.x_sendfile_header = nil
 end
