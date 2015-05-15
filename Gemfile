@@ -53,6 +53,7 @@ group :development do
   gem 'pry-rails', '~> 0.3.2'
   gem 'bundler-audit', '~> 0.3.1'
   gem 'guard-rspec', require: false
+  gem 'meta_request'
 end
 
 group :development, :test do
