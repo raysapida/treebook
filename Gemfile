@@ -54,7 +54,8 @@ group :development do
   gem 'pry-rails', '~> 0.3.2'
   gem 'bundler-audit', '~> 0.3.1'
   gem 'guard-rspec', require: false
-  gem 'meta_request'
+  gem 'meta_request', '~> 0.3.4'
+  gem 'better_errors', '~> 2.1.1'
 end
 
 group :development, :test do
