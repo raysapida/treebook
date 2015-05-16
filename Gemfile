@@ -56,6 +56,7 @@ group :development do
   gem 'guard-rspec', require: false
   gem 'meta_request', '~> 0.3.4'
   gem 'better_errors', '~> 2.1.1'
+  gem 'spring-commands-rspec', '~> 1.0.4'
 end
 
 group :development, :test do
