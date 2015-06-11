@@ -52,6 +52,9 @@ end
 
 group :development do
   gem 'pry-rails', '~> 0.3.2'
+  gem 'pry-stack_explorer', '~> 0.4.9.2'
+  gem 'awesome_print', '~> 1.6.1'
+  gem 'hirb', '~> 0.7.3'
   gem 'bundler-audit', '~> 0.3.1'
   gem 'guard-rspec', require: false
   gem 'meta_request', '~> 0.3.4'
