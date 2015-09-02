@@ -61,6 +61,7 @@ group :development do
   gem 'better_errors', '~> 2.1.1'
   gem 'spring-commands-rspec', '~> 1.0.4'
   gem 'guard-brakeman'
+  gem 'guard-puma'
 end
 
 group :development, :test do

@@ -82,3 +82,8 @@ guard 'brakeman', :run_on_start => true do
   watch(%r{^lib/.+\.rb$})
   watch('Gemfile')
 end
+
+guard 'puma' do
+  watch('Gemfile.lock')
+  watch(%r{^config|lib|api/.*})
+end
