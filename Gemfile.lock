@@ -359,7 +359,7 @@ GEM
       rack
     rack-contrib (1.8.0)
       rack (~> 1.4)
-    rack-mini-profiler (0.9.9.2)
+    rack-mini-profiler (0.10.7)
       rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -551,7 +551,7 @@ DEPENDENCIES
   puma (~> 2.16.0)
   pygments.rb (~> 1.2.1)
   rack-attack (~> 4.2.0)
-  rack-mini-profiler (~> 0.9.9.2)
+  rack-mini-profiler (~> 0.10.1)
   rack-timeout (~> 0.2.4)
   rails (= 4.2.8)
   rails_12factor (~> 0.0.3)
