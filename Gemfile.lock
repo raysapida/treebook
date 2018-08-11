@@ -338,7 +338,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
-    pg (0.21.0)
+    pg (0.20.0)
     posix-spawn (0.3.13)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -547,7 +547,7 @@ DEPENDENCIES
   omniauth-instagram (~> 1.0.1)
   omniauth-twitter (~> 1.2.0)
   paperclip (>= 3)
-  pg (~> 0.11)
+  pg (~> 0.20.0)
   pry-byebug (~> 2.0.0)
   pry-rails (~> 0.3.2)
   pry-stack_explorer (~> 0.4.9.2)
