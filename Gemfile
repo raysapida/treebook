@@ -30,7 +30,7 @@ gem 'email_validator', '~> 1.5.0'
 gem 'rack-timeout', '~> 0.2.4'
 gem 'rack-mini-profiler', '~> 0.10.1', require: false
 gem 'flamegraph', '~> 0.1.0'
-gem 'omniauth', '~> 1.2.2'
+gem 'omniauth', '~> 1.3.2'
 gem 'omniauth-twitter', '~> 1.2.0'
 gem 'omniauth-facebook', '~> 2.0.1'
 gem 'omniauth-instagram', '~> 1.0.1'
