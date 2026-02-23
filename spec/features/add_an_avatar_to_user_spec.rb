@@ -6,8 +6,8 @@ describe 'adding an avatar', type: :feature do
     status = create(:status, user: user)
 
     visit root_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'user[email]', with: user.email
+    fill_in 'user[password]', with: user.password
     click_button 'Log in'
     expect(page).to have_content 'Signed in successfully'
 

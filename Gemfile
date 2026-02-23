@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 ruby "2.3.7"
 
 gem 'rails', '4.2.11'
+gem 'loofah', '~> 2.19.0'
+gem 'tilt', '~> 1.4.1'
 gem 'sass-rails', '~> 5.0', '>= 5.0.6'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -9,7 +11,7 @@ gem 'jquery-rails', '~> 4.3.3'
 gem 'turbolinks', '~> 2.4.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'bootstrap-sass', '~> 3.2.0.2'
+gem 'bootstrap-sass', '~> 3.2.0'
 gem 'devise', '~> 3.4.0'
 gem 'simple_form', '>= 3.1.0.rc2'
 gem 'state_machine', git: 'https://github.com/seuros/state_machine.git'
@@ -57,11 +59,9 @@ group :development do
   gem 'hirb', '~> 0.7.3'
   gem 'bundler-audit', '~> 0.3.1'
   gem 'guard-rspec', require: false
-  gem 'meta_request', '~> 0.3.4'
+  gem 'meta_request', '~> 0.4.0'
   gem 'better_errors', '~> 2.1.1'
   gem 'spring-commands-rspec', '~> 1.0.4'
-  gem 'guard-brakeman'
-  gem 'guard-puma'
 end
 
 group :development, :test do
