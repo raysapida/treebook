@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby "2.3.7"
+ruby "2.6.10"
 
-gem 'rails', '~> 5.1.0', '>= 5.1.7'
+gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
@@ -14,7 +14,7 @@ gem 'puma', '~> 3.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'devise', '~> 4.2'
-gem 'simple_form', '~> 3.5'
+gem 'simple_form', '~> 4.1'
 gem 'state_machines-activerecord', '~> 0.5'
 gem 'draper', '~> 3.0'
 gem 'js-routes', '~> 1.4'
@@ -29,8 +29,6 @@ gem 'pygments.rb', '~> 1.2'
 gem 'haml-rails', '~> 1.0'
 gem 'email_validator', '~> 1.6'
 gem 'rack-timeout', '~> 0.4.2'
-gem 'rack-mini-profiler', '~> 1.0', require: false
-gem 'flamegraph', '~> 0.1.0'
 gem 'omniauth', '~> 1.6'
 gem 'omniauth-twitter', '~> 1.4'
 gem 'omniauth-facebook', '~> 4.0'
@@ -48,7 +46,7 @@ gem 'tilt', '2.0.8'
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'capybara', '~> 3.15'
-  gem 'database_cleaner', '~> 1.4.1'
+  gem 'database_cleaner-active_record'
   gem 'rails-controller-testing'
   gem 'rspec-mocks', '~> 3.4'
   gem 'formulaic', '~> 0.2.0'
@@ -61,7 +59,7 @@ group :development do
   gem 'hirb', '~> 0.7.3'
   gem 'bundler-audit', '~> 0.6'
   gem 'guard-rspec', require: false
-  gem 'meta_request', '~> 0.4.0'
+  gem 'meta_request', '~> 0.7'
   gem 'better_errors', '~> 2.1.1'
   gem 'spring-commands-rspec', '~> 1.0.4'
 end

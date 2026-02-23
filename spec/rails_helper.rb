@@ -7,7 +7,7 @@ require 'shoulda/matchers'
 require 'paperclip/matchers'
 require 'capybara/rails'
 require 'formulaic'
-require 'database_cleaner'
+require 'database_cleaner/active_record'
 require 'factory_girl_rails'
 require 'rails-controller-testing'
 
