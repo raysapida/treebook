@@ -3,6 +3,7 @@ require 'rails_helper'
 describe User do
   let(:user) { build(:user) }
   let(:friend) { build(:user) }
+  subject { create(:user) }
 
   it { should have_many(:statuses) }
   it { should have_many(:friends) }
@@ -24,7 +25,7 @@ describe User do
   it { should validate_presence_of(:profile_name)}
   it { should validate_presence_of(:email) }
   it { should validate_uniqueness_of(:profile_name)}
-  it { should validate_uniqueness_of(:email)}
+  it { should validate_uniqueness_of(:email).case_insensitive }
   it { should validate_attachment_content_type(:avatar).
        allowing('image/png', 'image/gif', 'image/jpeg', 'image/bmp').
        rejecting('text/plain', 'text/xml') }

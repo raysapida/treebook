@@ -57,7 +57,7 @@ RSpec.describe PicturesController, type: :controller do
   describe 'GET #new' do
     context 'with correct signed in user' do
       before do
-        sign_in :user, album.user
+        sign_in album.user, scope: :user
         get :new, { profile_name: album.user,
                     album_id: album }, valid_session
       end
@@ -73,7 +73,7 @@ RSpec.describe PicturesController, type: :controller do
 
     context 'with incorrect signed in user' do
       before do
-        sign_in :user, different_user
+        sign_in different_user, scope: :user
 
         get :new, { profile_name: album.user,
                     album_id: album }, valid_session
@@ -92,7 +92,7 @@ RSpec.describe PicturesController, type: :controller do
   describe 'GET #edit' do
     context 'with correct signed in user' do
       before do
-        sign_in :user, picture.album.user
+        sign_in picture.album.user, scope: :user
         get :edit, { profile_name: picture.album.user,
                      album_id: picture.album,
                      id: picture }, valid_session
@@ -109,7 +109,7 @@ RSpec.describe PicturesController, type: :controller do
 
     context 'with incorrect signed in user' do
       before do
-        sign_in :user, different_user
+        sign_in different_user, scope: :user
         get :edit, { profile_name: picture.album.user,
                      album_id: picture.album,
                      id: picture }, valid_session
@@ -128,7 +128,7 @@ RSpec.describe PicturesController, type: :controller do
   describe 'POST #create' do
     context 'with valid params' do
       before do
-        sign_in :user, album.user
+        sign_in album.user, scope: :user
       end
 
       it 'creates a new Picture' do
@@ -167,7 +167,7 @@ RSpec.describe PicturesController, type: :controller do
 
     context 'with invalid params' do
       before do
-        sign_in :user, album.user
+        sign_in album.user, scope: :user
         post :create, {picture: invalid_attributes,
                        profile_name: album.user,
                        album_id: album}, valid_session
@@ -184,7 +184,7 @@ RSpec.describe PicturesController, type: :controller do
 
     context 'with incorrect signed in user and valid attributes' do
       before do
-        sign_in :user, different_user
+        sign_in different_user, scope: :user
         post :create, {picture: valid_attributes,
                        profile_name: album.user,
                        album_id: album}, valid_session
@@ -203,7 +203,7 @@ RSpec.describe PicturesController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       before do
-        sign_in :user, picture.album.user
+        sign_in picture.album.user, scope: :user
         put :update, { profile_name: picture.album.user,
                        album_id: picture.album,
                        id: picture,
@@ -248,7 +248,7 @@ RSpec.describe PicturesController, type: :controller do
 
     context 'with invalid params' do
       before do
-        sign_in :user, picture.album.user
+        sign_in picture.album.user, scope: :user
         put :update, { profile_name: picture.album.user,
                        album_id: picture.album,
                        id: picture,
@@ -266,7 +266,7 @@ RSpec.describe PicturesController, type: :controller do
 
     context 'with incorrect signed in user and valid attributes' do
       before do
-        sign_in :user, different_user
+        sign_in different_user, scope: :user
         put :update, { profile_name: picture.album.user,
                        album_id: picture.album,
                        id: picture,
@@ -285,7 +285,7 @@ RSpec.describe PicturesController, type: :controller do
 
   describe 'DELETE #destroy' do
     before do
-      sign_in :user, picture.album.user
+      sign_in picture.album.user, scope: :user
     end
 
     it 'destroys the requested picture' do
@@ -322,7 +322,7 @@ RSpec.describe PicturesController, type: :controller do
 
     context 'with incorrect signed in user' do
       before do
-        sign_in :user, different_user
+        sign_in different_user, scope: :user
         delete :destroy, {profile_name: picture.album.user,
                           album_id: picture.album,
                           id: picture}, valid_session

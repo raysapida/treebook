@@ -44,7 +44,7 @@ describe UserFriendshipsController do
     end
 
     it 'with a signed in user' do
-      sign_in :user, original
+      sign_in original, scope: :user
 
       get :index
 
@@ -62,7 +62,7 @@ describe UserFriendshipsController do
 
     context 'with a signed in user' do
       before do
-        sign_in :user, original
+        sign_in original, scope: :user
       end
 
       it 'render new template' do
@@ -72,7 +72,7 @@ describe UserFriendshipsController do
       end
 
       it 'with a signed in user without friend_id' do
-        get :new, {}
+        get :new, params: {}
 
         expect(flash[:error]).to eq('Friend required')
       end
@@ -93,7 +93,7 @@ describe UserFriendshipsController do
 
   describe 'POST create' do
     it 'with a signed in user and empty request redirect to root' do
-      sign_in :user, original
+      sign_in original, scope: :user
 
       post :create
 
@@ -102,7 +102,7 @@ describe UserFriendshipsController do
 
     context 'with correct friend and signed in user' do
       before do
-        sign_in :user, original
+        sign_in original, scope: :user
         post :create, user_friendship: { friend_id: other }
       end
 
@@ -147,7 +147,7 @@ describe UserFriendshipsController do
 
       before do
         create(:pending_user_friendship, user: friend, friend: original)
-        sign_in :user, original
+        sign_in original, scope: :user
         put :accept, id: pending_friendship
         pending_friendship.reload
       end
@@ -174,7 +174,7 @@ describe UserFriendshipsController do
 
       it 'with proper parameters' do
         create(:pending_user_friendship, user: friend, friend: original)
-        sign_in :user, original
+        sign_in original, scope: :user
 
         expect {
           put :accept, id: pending_friendship
@@ -199,7 +199,7 @@ describe UserFriendshipsController do
     }
 
     before do
-      sign_in :user, original
+      sign_in original, scope: :user
       put :edit, id: pending_friendship.friend.profile_name
       pending_friendship.reload
     end
@@ -236,7 +236,7 @@ describe '#destroy' do
 
     before do
       create(:accepted_user_friendship, user: friend, friend: original)
-      sign_in :user, original
+      sign_in original, scope: :user
     end
 
     it 'delete user friendship' do
@@ -272,7 +272,7 @@ describe '#block' do
 
     before do
       create(:pending_user_friendship, user: friend, friend: original)
-      sign_in :user, original
+      sign_in original, scope: :user
       put :block, id: friendship
       friendship.reload
     end

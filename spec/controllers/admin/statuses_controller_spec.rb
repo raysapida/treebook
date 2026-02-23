@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Admin::StatusesController do
   before do
     @user = create(:user, email: 'admin@example.com')
-    sign_in :user, @user
+    sign_in @user, scope: :user
   end
 
   describe 'GET index' do

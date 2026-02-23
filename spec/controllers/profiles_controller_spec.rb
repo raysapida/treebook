@@ -5,7 +5,7 @@ describe ProfilesController do
 
   describe 'GET show' do
     it 'success with signed in user' do
-      sign_in :user, user
+      sign_in user, scope: :user
       get :show, id: user.profile_name
 
       expect(response).to be_success
@@ -20,7 +20,7 @@ describe ProfilesController do
     it 'that variables are assigned on successful profile viewing' do
       other = create(:user)
 
-      sign_in :user, user
+      sign_in user, scope: :user
       get :show, id: other.profile_name
 
       expect(assigns(:user)).to eq(other)
@@ -32,7 +32,7 @@ describe ProfilesController do
       create(:status, user: other)
       create(:status, user: other)
 
-      sign_in :user, user
+      sign_in user, scope: :user
       get :show, id: other.profile_name
 
       assigns(:statuses).each do |status|

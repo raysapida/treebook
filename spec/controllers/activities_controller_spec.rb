@@ -4,7 +4,7 @@ describe ActivitiesController do
   let!(:user) { create(:user) }
   describe 'GET index' do
     it 'with signed in user' do
-      sign_in :user, user
+      sign_in user, scope: :user
 
       get :index
 

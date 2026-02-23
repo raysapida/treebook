@@ -1,4 +1,4 @@
-class Document < ActiveRecord::Base
+class Document < ApplicationRecord
   has_attached_file :attachment, styles: {
     large: '800x800>', medium: '300x200>', small: '260x180>', thumb: '80x80#'
   }

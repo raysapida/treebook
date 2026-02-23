@@ -15,13 +15,13 @@ RSpec.describe StatusesController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all statuses as @statuses' do
-      get :index, {}, valid_session
+      get :index, params: {}, session: valid_session
 
       expect(assigns(:statuses)).to eq([status])
     end
 
     it 'renders index template' do
-      get :index, {}, valid_session
+      get :index, params: {}, session: valid_session
 
       expect(response).to render_template(:index)
     end
@@ -31,8 +31,8 @@ RSpec.describe StatusesController, type: :controller do
       blocked_status = frienship.friend.statuses.create(content: 'Blocked status')
       status = create(:status, content: 'Non-blocked status')
 
-      sign_in :user, user
-      get :index, {}, valid_session
+      sign_in user, scope: :user
+      get :index, params: {}, session: valid_session
 
       expect(assigns(:statuses)).to eq([status])
     end
@@ -40,7 +40,7 @@ RSpec.describe StatusesController, type: :controller do
 
   describe 'GET #show' do
     before do
-      get :show, {id: status}, valid_session
+      get :show, params: {id: status}, session: valid_session
     end
 
     it 'assigns the requested status as @status' do
@@ -54,8 +54,8 @@ RSpec.describe StatusesController, type: :controller do
 
   describe 'GET #new' do
     before do
-      sign_in :user, user
-      get :new, {}, valid_session
+      sign_in user, scope: :user
+      get :new, params: {}, session: valid_session
     end
 
     it 'assigns a new status as @status' do
@@ -69,8 +69,8 @@ RSpec.describe StatusesController, type: :controller do
 
   describe 'GET #edit' do
     before do
-      sign_in :user, status.user
-      get :edit, {id: status}, valid_session
+      sign_in status.user, scope: :user
+      get :edit, params: {id: status}, session: valid_session
     end
 
     it 'assigns the requested status as @status' do
@@ -84,39 +84,39 @@ RSpec.describe StatusesController, type: :controller do
 
   describe 'POST #create' do
     before do
-      sign_in :user, user
+      sign_in user, scope: :user
     end
 
     context 'with valid params' do
       it 'creates a new Status' do
         expect {
-          post :create, {:status => valid_attributes}, valid_session
+          post :create, params: {:status => valid_attributes}, session: valid_session
         }.to change(Status, :count).by(1)
       end
 
       it 'assigns a newly created status as @status' do
-        post :create, {:status => valid_attributes}, valid_session
+        post :create, params: {:status => valid_attributes}, session: valid_session
 
         expect(assigns(:status)).to be_a(Status)
         expect(assigns(:status)).to be_persisted
       end
 
       it 'redirects to the created status' do
-        post :create, {:status => valid_attributes}, valid_session
+        post :create, params: {:status => valid_attributes}, session: valid_session
 
         expect(response).to redirect_to(Status.last)
       end
 
       it 'creates an activity' do
         expect {
-          post :create, {:status => valid_attributes}, valid_session
+          post :create, params: {:status => valid_attributes}, session: valid_session
         }.to change(Activity, :count).by(1)
       end
     end
 
     context 'with invalid params' do
       before do
-        post :create, {:status => invalid_attributes}, valid_session
+        post :create, params: {:status => invalid_attributes}, session: valid_session
       end
 
       it 'assigns a newly created but unsaved status as @status' do
@@ -131,7 +131,7 @@ RSpec.describe StatusesController, type: :controller do
 
   describe 'PUT #update' do
     before do
-      sign_in :user, status.user
+      sign_in status.user, scope: :user
     end
 
     context 'with valid params' do
@@ -140,34 +140,34 @@ RSpec.describe StatusesController, type: :controller do
       }
 
       it 'updates the requested status' do
-        put :update, {id: status, status: new_attributes}, valid_session
+        put :update, params: {id: status, status: new_attributes}, session: valid_session
         status.reload
 
         expect(status.content).to eq('New content')
       end
 
       it 'assigns the requested status as @status' do
-        put :update, {id: status, status: valid_attributes}, valid_session
+        put :update, params: {id: status, status: valid_attributes}, session: valid_session
 
         expect(assigns(:status)).to eq(status)
       end
 
       it 'redirects to the status' do
-        put :update, {id: status, status: valid_attributes}, valid_session
+        put :update, params: {id: status, status: valid_attributes}, session: valid_session
 
         expect(response).to redirect_to(status)
       end
 
       it 'creates an activity' do
         expect {
-          put :update, {id: status, status: valid_attributes}, valid_session
+          put :update, params: {id: status, status: valid_attributes}, session: valid_session
         }.to change(Activity, :count).by(1)
       end
     end
 
     context 'with invalid params' do
       before do
-        put :update, {id: status, status: invalid_attributes}, valid_session
+        put :update, params: {id: status, status: invalid_attributes}, session: valid_session
       end
 
       it 'assigns the status as @status' do
@@ -182,23 +182,23 @@ RSpec.describe StatusesController, type: :controller do
 
   describe 'DELETE #destroy' do
     before do
-      sign_in :user, status.user
+      sign_in status.user, scope: :user
     end
 
     it 'destroys the requested status' do
       expect {
-        delete :destroy, {id: status}, valid_session
+        delete :destroy, params: {id: status}, session: valid_session
       }.to change(Status, :count).by(-1)
     end
 
     it 'redirects to the statuses list' do
-      delete :destroy, {id: status}, valid_session
+      delete :destroy, params: {id: status}, session: valid_session
       expect(response).to redirect_to(statuses_url)
     end
 
     it 'creates an activity' do
       expect {
-        delete :destroy, {id: status}, valid_session
+        delete :destroy, params: {id: status}, session: valid_session
       }.to change(Activity, :count).by(1)
     end
   end
