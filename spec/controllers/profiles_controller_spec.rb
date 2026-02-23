@@ -8,7 +8,7 @@ describe ProfilesController do
       sign_in user, scope: :user
       get :show, params: { id: user.profile_name }
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should render a 404 on profile not found' do

@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
-ruby "2.6.10"
+ruby "2.7.8"
 
-gem 'rails', '~> 5.2.8', '>= 5.2.8.1'
+gem 'rails', '6.0.6.1'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.10.0'
 gem 'pg', '~> 0.20.0'
 gem 'puma', '~> 3.0'
 
@@ -26,7 +26,7 @@ gem 'high_voltage', '~> 3.1'
 gem 'rack-attack', '~> 5.4'
 gem 'redcarpet', '~> 3.4'
 gem 'pygments.rb', '~> 1.2'
-gem 'haml-rails', '~> 1.0'
+gem 'haml-rails', '~> 2.0'
 gem 'email_validator', '~> 1.6'
 gem 'rack-timeout', '~> 0.4.2'
 gem 'omniauth', '~> 1.6'
@@ -38,10 +38,12 @@ gem 'instagram', '~> 1.1.6'
 gem 'omniauth-google-oauth2', '~> 0.5'
 gem 'google-api-client', '~> 0.11', require: 'google/apis/identitytoolkit_v3'
 gem 'bootstrap-social-rails', '~> 4.12'
-gem 'faker', '~> 1.9'
-gem 'activeadmin', '~> 1.3'
+gem 'faker', '~> 2.23'
+gem 'activeadmin', '~> 2.0'
 gem 'loofah', '~> 2.19.0'
 gem 'tilt', '2.0.8'
+gem 'logger'
+gem 'kaminari'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
@@ -53,7 +55,7 @@ group :test do
 end
 
 group :development do
-  gem 'pry-rails', '~> 0.3.2'
+  gem 'pry-rails', '~> 0.3.11'
   gem 'pry-stack_explorer', '~> 0.4.9.2'
   gem 'awesome_print', '~> 1.6.1'
   gem 'hirb', '~> 0.7.3'
@@ -68,8 +70,8 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.4'
   gem 'dotenv-rails', '~> 2.0.0'
   gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'rspec-rails', '~> 3.7'
-  gem 'bullet', '~> 5.5'
+  gem 'rspec-rails', '~> 4.0'
+  gem 'bullet', '~> 6.1'
 end
 
 group :production, :staging do

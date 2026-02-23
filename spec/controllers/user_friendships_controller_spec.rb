@@ -48,7 +48,7 @@ describe UserFriendshipsController do
 
       get :index
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template(:index)
     end
   end
@@ -209,7 +209,7 @@ describe UserFriendshipsController do
     end
 
     it 'the response should be successful' do
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'assign friend' do
