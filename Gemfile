@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.3.7"
 
-gem 'rails', '~> 5.0.7', '>= 5.0.7.2'
+gem 'rails', '~> 5.1.0', '>= 5.1.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
@@ -70,7 +70,7 @@ group :development, :test do
   gem 'pry-byebug', '~> 3.4'
   gem 'dotenv-rails', '~> 2.0.0'
   gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 3.7'
   gem 'bullet', '~> 5.5'
 end
 

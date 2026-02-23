@@ -78,13 +78,13 @@ describe UserFriendshipsController do
       end
 
       it 'with a signed in user should assign correct friend' do
-        get :new, friend_id: other
+        get :new, params: { friend_id: other }
 
         expect(assigns(:user_friendship).friend).to eq(other)
       end
 
       it 'with a signed in user should return 404 if friend not found' do
-        get :new, friend_id: 'invalid'
+        get :new, params: { friend_id: 'invalid' }
 
         expect(response.status).to eq(404)
       end
@@ -103,7 +103,7 @@ describe UserFriendshipsController do
     context 'with correct friend and signed in user' do
       before do
         sign_in original, scope: :user
-        post :create, user_friendship: { friend_id: other }
+        post :create, params: { user_friendship: { friend_id: other } }
       end
 
       it 'create a friendship' do
@@ -132,7 +132,7 @@ describe UserFriendshipsController do
   describe '#accept' do
     context 'when not logged in' do
       it 'redirect to login page' do
-        put :accept, id: 1
+        put :accept, params: { id: 1 }
 
         expect(response).to redirect_to(login_path)
       end
@@ -148,7 +148,7 @@ describe UserFriendshipsController do
       before do
         create(:pending_user_friendship, user: friend, friend: original)
         sign_in original, scope: :user
-        put :accept, id: pending_friendship
+        put :accept, params: { id: pending_friendship }
         pending_friendship.reload
       end
 
@@ -177,7 +177,7 @@ describe UserFriendshipsController do
         sign_in original, scope: :user
 
         expect {
-          put :accept, id: pending_friendship
+          put :accept, params: { id: pending_friendship }
           pending_friendship.reload
         }.to change(Activity, :count).by(1)
       end
@@ -187,7 +187,7 @@ describe UserFriendshipsController do
   describe '#edit' do
     context 'when not logged in' do
       it 'redirect to login page' do
-        put :edit, id: 1
+        put :edit, params: { id: 1 }
 
         expect(response).to redirect_to(login_path)
       end
@@ -200,7 +200,7 @@ describe UserFriendshipsController do
 
     before do
       sign_in original, scope: :user
-      put :edit, id: pending_friendship.friend.profile_name
+      put :edit, params: { id: pending_friendship.friend.profile_name }
       pending_friendship.reload
     end
 
@@ -221,7 +221,7 @@ end
 describe '#destroy' do
   context 'when not logged in' do
     it 'redirect to login page' do
-      delete :destroy, id: 1
+      delete :destroy, params: { id: 1 }
 
       expect(response).to redirect_to(login_path)
     end
@@ -241,12 +241,12 @@ describe '#destroy' do
 
     it 'delete user friendship' do
       expect {
-        delete :destroy, id: accepted_friendship
+        delete :destroy, params: { id: accepted_friendship }
       }.to change(UserFriendship, :count).by(-2)
     end
 
     it 'should flash a success message' do
-      delete :destroy, id: accepted_friendship
+      delete :destroy, params: { id: accepted_friendship }
 
       expect(flash[:success]).to eq('Friendship destroyed')
     end
@@ -257,7 +257,7 @@ end
 describe '#block' do
   context 'when not logged in' do
     it 'redirect to login page' do
-      put :block, id: 1
+      put :block, params: { id: 1 }
 
       expect(response).to redirect_to(login_path)
     end
@@ -273,7 +273,7 @@ describe '#block' do
     before do
       create(:pending_user_friendship, user: friend, friend: original)
       sign_in original, scope: :user
-      put :block, id: friendship
+      put :block, params: { id: friendship }
       friendship.reload
     end
 

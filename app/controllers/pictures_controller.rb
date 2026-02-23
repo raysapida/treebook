@@ -1,10 +1,10 @@
 class PicturesController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :new, :update, :edit, :destroy]
-  before_filter :find_user
-  before_filter :find_album
-  before_filter :find_picture, only: [:edit, :update, :show, :destroy]
-  before_filter :ensure_proper_user, only: [:create, :new, :update, :edit, :destroy]
-  before_filter :add_breadcrumbs
+  before_action :authenticate_user!, only: [:create, :new, :update, :edit, :destroy]
+  before_action :find_user
+  before_action :find_album
+  before_action :find_picture, only: [:edit, :update, :show, :destroy]
+  before_action :ensure_proper_user, only: [:create, :new, :update, :edit, :destroy]
+  before_action :add_breadcrumbs
 
   def index
     @pictures = @album.pictures.all.includes(:user)
