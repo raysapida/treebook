@@ -37,7 +37,7 @@ class UserFriendshipsController < ApplicationController
       flash[:error] = "Friend required"
     end
   rescue ActiveRecord::RecordNotFound
-    render file: 'public/404', status: :not_found
+    render file: Rails.root.join('public', '404.html'), status: :not_found, layout: false
   end
 
   def create

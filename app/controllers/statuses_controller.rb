@@ -61,8 +61,8 @@ class StatusesController < ApplicationController
     document = status.document
 
     status.transaction do
-      status.update_attributes!(status_params)
-      document.update_attributes!(document_params) if document
+      status.update!(status_params)
+      document.update!(document_params) if document
       current_user.create_activity(status, 'updated')
     end
 
