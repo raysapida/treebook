@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 ruby "2.7.8"
 
-gem 'rails', '6.0.6.1'
+gem 'rails', '~> 6.1.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.10.0'
-gem 'pg', '~> 0.20.0'
+gem 'pg', '~> 1.5'
 gem 'puma', '~> 3.0'
 
 gem 'sdoc', '>= 1.1.0',          group: :doc

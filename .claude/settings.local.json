@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(docker-compose:*)"
+      "Bash(docker-compose:*)",
+      "Bash(yes:*)",
+      "Bash(git -C /Users/raysapida/personal/treebook show HEAD:config/routes.rb)",
+      "Bash(git -C /Users/raysapida/personal/treebook diff config/routes.rb)",
+      "Bash(git -C /Users/raysapida/personal/treebook checkout HEAD -- config/routes.rb)"
     ]
   }
 }
