@@ -48,10 +48,13 @@ class User < ApplicationRecord
     through: :accepted_user_friendships,
     source: :friend
 
-  has_attached_file :avatar, styles: {
-    large: '800x800>', medium: '300x200>', small: '260x180>', thumb: '80x80#'
-  }
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+  has_one_attached :avatar do |attachable|
+    attachable.variant :thumb,   resize_to_fill: [80, 80]
+    attachable.variant :small,   resize_to_limit: [260, 180]
+    attachable.variant :medium,  resize_to_limit: [300, 200]
+    attachable.variant :large,   resize_to_limit: [800, 800]
+  end
+  validates :avatar, content_type: /\Aimage\/.*\Z/, allow_blank: true
 
   validates_presence_of :first_name
   validates_presence_of :last_name

@@ -19,15 +19,15 @@
       </div>
     </div>
     <%= f.fields_for :document do |document_fields| %>
-    <% if document_fields.object.attachment? %>
+    <% if document_fields.object.attachment.attached? %>
       <div class='form-group'>
         <label class='col-sm-2 control-label'>Current attachment</label>
         <div class='controls col-sm-10'>
-          <%= link_to document_fields.object.attachment_file_name, document_fields.object.attachment.url %>
+          <%= link_to document_fields.object.attachment.filename, url_for(document_fields.object.attachment) %>
         </div>
       </div>
       <div class='text-center'>
-        <%= image_tag(@status.user.avatar.url(:large), alt: @status.user.full_name, class: 'img-responsive') %>
+        <%= image_tag(@status.user.avatar.variant(:large), alt: @status.user.full_name, class: 'img-responsive') if @status.user.avatar.attached? %>
       </div>
       <div class='form-group'>
         <div class='col-sm-7'>

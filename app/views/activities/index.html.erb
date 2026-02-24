@@ -4,10 +4,10 @@
 
 <% @activities.each do |activity| %>
   <div class="media">
-    <% if activity.user.avatar_file_name.nil? %>
-      <%= avatar_profile_link activity.user, {}, class: 'pull-left' %>
+    <% if activity.user.avatar.attached? %>
+      <%= image_tag(activity.user.avatar.variant(:thumb), alt: activity.user.full_name, class: 'pull-left') %>
     <% else %>
-      <%= image_tag(activity.user.avatar.url(:thumb), alt: activity.user.full_name, class: 'pull-left') %>
+      <%= avatar_profile_link activity.user, {}, class: 'pull-left' %>
     <% end %>
     <div class="media-body">
       <h4 class="media-heading"><%= activity.user.full_name %></h4>

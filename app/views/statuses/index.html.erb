@@ -7,20 +7,20 @@
 <% @statuses.each do |status| %>
   <% if can_display_status?(status) %>
     <div class="status media">
-      <% if status.user.avatar_file_name.nil? %>
-        <%= avatar_profile_link status.user, {alt: status.user.profile_name}, class: 'pull-left gravatar' %>
-      <% else %>
-        <%= link_to(image_tag(status.user.avatar.url(:thumb),
+      <% if status.user.avatar.attached? %>
+        <%= link_to(image_tag(status.user.avatar.variant(:thumb),
                               alt: status.user.profile_name,
                               class: 'pull-left avatar'),
                               profile_path(status.user)) %>
+      <% else %>
+        <%= avatar_profile_link status.user, {alt: status.user.profile_name}, class: 'pull-left gravatar' %>
       <% end %>
       <div class="media-body">
         <h4 class="media-heading"><%= status.user.full_name %></h4>
         <p>
           <%= status.content %>
-          <% unless status.document.nil? %>
-            <%= image_tag(status.document.attachment.url(:thumb), class: "img-polaroid") %>
+          <% if status.document&.attachment&.attached? %>
+            <%= image_tag(status.document.attachment.variant(:thumb), class: "img-polaroid") %>
           <% end %>
         </p>
         <div class="meta">

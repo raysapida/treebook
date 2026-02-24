@@ -1,20 +1,21 @@
 module ApplicationHelper
 
-  def bootstrap_paperclip_picture(form, paperclip_object)
-    if form.object.send("#{paperclip_object}?")
+  def bootstrap_active_storage_picture(form, attachment_name)
+    attachment = form.object.public_send(attachment_name)
+    if attachment.attached?
       content_tag(:div, class: 'control-group') do
-        content_tag(:label, "Current #{paperclip_object.to_s.titleize}", class: 'col-sm-2 control-label') +
+        content_tag(:label, "Current #{attachment_name.to_s.titleize}", class: 'col-sm-2 control-label') +
           content_tag(:div, class: 'col-sm-10 controls') do
-          image_tag form.object.send(paperclip_object).send(:url, :small)
+          image_tag attachment.variant(:small)
         end
       end
     end
   end
 
   def status_document_link(status)
-    if status.document && status.document.attachment?
+    if status.document&.attachment&.attached?
       content_tag(:span, 'Attachment', class: 'label label-info') +
-        link_to(status.document.attachment_file_name, status.document.attachment.url)
+        link_to(status.document.attachment.filename, url_for(status.document.attachment))
     end
   end
 

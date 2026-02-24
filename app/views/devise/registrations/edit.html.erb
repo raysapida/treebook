@@ -6,10 +6,10 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class='col-md-4'>
-    <% if @user.avatar_file_name.nil? %>
-      <%= avatar_profile_link @user, {}, class: '' %>
+    <% if @user.avatar.attached? %>
+      <%= image_tag(@user.avatar.variant(:medium), alt: @user.full_name, class: "img-circle") %>
     <% else %>
-      <%= image_tag(@user.avatar.url(:medium), alt: @user.full_name, class: "img-circle") %>
+      <%= avatar_profile_link @user, {}, class: '' %>
     <% end %>
   </div>
 

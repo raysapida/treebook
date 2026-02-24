@@ -1,17 +1,17 @@
 class Document < ApplicationRecord
-  has_attached_file :attachment, styles: {
-    large: '800x800>', medium: '300x200>', small: '260x180>', thumb: '80x80#'
-  }
+  has_one_attached :attachment do |attachable|
+    attachable.variant :thumb,   resize_to_fill: [80, 80]
+    attachable.variant :small,   resize_to_limit: [260, 180]
+    attachable.variant :medium,  resize_to_limit: [300, 200]
+    attachable.variant :large,   resize_to_limit: [800, 800]
+  end
 
   attr_accessor :remove_attachment
 
-  validates_attachment_size :attachment, less_than: 5.megabytes
-  validates_attachment_content_type :attachment, content_type: /\Aimage\/.*\Z/
+  validates :attachment, content_type: /\Aimage\/.*\Z/, size: { less_than: 5.megabytes }, allow_blank: true
 
   before_save :perform_attachment_removal
   def perform_attachment_removal
-    if remove_attachment == '1' && !attachment.dirty?
-      self.attachment = nil
-    end
+    attachment.purge if remove_attachment == '1' && attachment.attached?
   end
 end
