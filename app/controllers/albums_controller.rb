@@ -1,9 +1,9 @@
 class AlbumsController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :new, :update, :edit, :destroy]
-  before_filter :find_user
+  before_action :authenticate_user!, only: [:create, :new, :update, :edit, :destroy]
+  before_action :find_user
   before_action :find_album, only: [:edit, :update, :destroy]
-  before_filter :ensure_proper_user, only: [:create, :new, :update, :edit, :destroy]
-  before_filter :add_breadcrumbs
+  before_action :ensure_proper_user, only: [:create, :new, :update, :edit, :destroy]
+  before_action :add_breadcrumbs
 
   def index
     @albums = Album.all.includes(:user)
@@ -76,7 +76,7 @@ class AlbumsController < ApplicationController
   end
 
   def find_user
-    @user = User.find_by_profile_name(params[:profile_name])
+    @user = User.find_by(profile_name: params[:profile_name])
   end
 
   def find_album

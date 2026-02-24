@@ -3,7 +3,7 @@ require 'rails_helper'
 describe UserNotifier, type: :mailer do
   it 'should have access to URL helpers' do
     expect { login_url :host => 'example.com' }.not_to raise_error
-    expect { login_url }.to raise_error
+    expect { login_url }.to raise_error(ArgumentError)
   end
 
   context '#friend_requested' do

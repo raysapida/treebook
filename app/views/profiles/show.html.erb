@@ -1,9 +1,9 @@
 <%= page_header do %>
   <h1>
-    <% if @user.avatar_file_name.nil? %>
-      <%= avatar_profile_link @user, {}, class: '' %>
+    <% if @user.avatar.attached? %>
+      <%= image_tag(@user.avatar.variant(:thumb), alt: @user.full_name, class: "img-polaroid") %>
     <% else %>
-      <%= image_tag(@user.avatar.url(:thumb), alt: @user.full_name, class: "img-polaroid") %>
+      <%= avatar_profile_link @user, {}, class: '' %>
     <% end %>
     <%= @user.full_name %>
   </h1>

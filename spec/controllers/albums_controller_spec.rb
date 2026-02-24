@@ -15,7 +15,7 @@ RSpec.describe AlbumsController, type: :controller do
 
   describe 'GET #index' do
     before do
-      get :index, {profile_name: album.user}, valid_session
+      get :index, params: {profile_name: album.user}, session: valid_session
     end
 
     it 'assigns all albums as @albums' do
@@ -29,7 +29,7 @@ RSpec.describe AlbumsController, type: :controller do
 
   describe 'GET #show' do
     it 'redirect to nested path' do
-      get :show, {id: album, profile_name: album.user}, valid_session
+      get :show, params: {id: album, profile_name: album.user}, session: valid_session
 
       expect(response).to redirect_to(album_pictures_path(album))
     end
@@ -37,9 +37,9 @@ RSpec.describe AlbumsController, type: :controller do
 
   describe 'GET #new' do
     it 'assigns a new album as @album' do
-      sign_in :user, user
+      sign_in user, scope: :user
 
-      get :new, {profile_name: user}, valid_session
+      get :new, params: {profile_name: user}, session: valid_session
 
       expect(assigns(:album)).to be_a_new(Album)
     end
@@ -47,9 +47,9 @@ RSpec.describe AlbumsController, type: :controller do
 
   describe 'GET #edit' do
     it 'assigns the requested album as @album' do
-      sign_in :user, album.user
+      sign_in album.user, scope: :user
 
-      get :edit, {id: album, profile_name: album.user }, valid_session
+      get :edit, params: {id: album, profile_name: album.user }, session: valid_session
 
       expect(assigns(:album)).to eq(album)
     end
@@ -57,39 +57,39 @@ RSpec.describe AlbumsController, type: :controller do
 
   describe 'POST #create' do
     before do
-      sign_in :user, user
+      sign_in user, scope: :user
     end
 
     context 'with valid params' do
       it 'creates a new Album' do
         expect {
-          post :create, {:album => valid_attributes, profile_name: user}, valid_session
+          post :create, params: {:album => valid_attributes, profile_name: user}, session: valid_session
         }.to change(Album, :count).by(1)
       end
 
       it 'assigns a newly created album as @album' do
-        post :create, {:album => valid_attributes, profile_name: user}, valid_session
+        post :create, params: {:album => valid_attributes, profile_name: user}, session: valid_session
 
         expect(assigns(:album)).to be_a(Album)
         expect(assigns(:album)).to be_persisted
       end
 
       it 'redirects to the created album' do
-        post :create, {:album => valid_attributes, profile_name: user}, valid_session
+        post :create, params: {:album => valid_attributes, profile_name: user}, session: valid_session
 
         expect(response).to redirect_to(Album.last)
       end
 
       it 'creates an activivy' do
         expect {
-          post :create, {:album => valid_attributes, profile_name: user}, valid_session
+          post :create, params: {:album => valid_attributes, profile_name: user}, session: valid_session
         }.to change(Activity, :count).by(1)
       end
     end
 
     context 'with invalid params' do
       before do
-        post :create, {:album => invalid_attributes, profile_name: user}, valid_session
+        post :create, params: {:album => invalid_attributes, profile_name: user}, session: valid_session
       end
 
       it 'assigns a newly created but unsaved album as @album' do
@@ -104,7 +104,7 @@ RSpec.describe AlbumsController, type: :controller do
 
   describe 'PUT #update' do
     before do
-      sign_in :user, album.user
+      sign_in album.user, scope: :user
     end
 
     context 'with valid params' do
@@ -113,34 +113,34 @@ RSpec.describe AlbumsController, type: :controller do
       }
 
       it 'updates the requested album' do
-        put :update, {id: album, album: new_attributes, profile_name: album.user}, valid_session
+        put :update, params: {id: album, album: new_attributes, profile_name: album.user}, session: valid_session
         album.reload
 
         expect(album.title).to eq('New title')
       end
 
       it 'assigns the requested album as @album' do
-        put :update, {id: album, album: valid_attributes, profile_name: album.user}, valid_session
+        put :update, params: {id: album, album: valid_attributes, profile_name: album.user}, session: valid_session
 
         expect(assigns(:album)).to eq(album)
       end
 
       it 'redirects to the album' do
-        put :update, {id: album, album: valid_attributes, profile_name: album.user}, valid_session
+        put :update, params: {id: album, album: valid_attributes, profile_name: album.user}, session: valid_session
 
         expect(response).to redirect_to(album_pictures_path(album))
       end
 
       it 'creates an activity' do
         expect {
-          put :update, {id: album, album: valid_attributes, profile_name: album.user}, valid_session
+          put :update, params: {id: album, album: valid_attributes, profile_name: album.user}, session: valid_session
         }.to change(Activity, :count).by(1)
       end
     end
 
     context 'with invalid params' do
       before do
-        put :update, {id: album, album: invalid_attributes, profile_name: album.user}, valid_session
+        put :update, params: {id: album, album: invalid_attributes, profile_name: album.user}, session: valid_session
       end
 
       it 'assigns the album as @album' do
@@ -155,23 +155,23 @@ RSpec.describe AlbumsController, type: :controller do
 
   describe 'DELETE #destroy' do
     before do
-      sign_in :user, album.user
+      sign_in album.user, scope: :user
     end
 
     it 'destroys the requested album' do
       expect {
-        delete :destroy, {id: album, profile_name: album.user}, valid_session
+        delete :destroy, params: {id: album, profile_name: album.user}, session: valid_session
       }.to change(Album, :count).by(-1)
     end
 
     it 'redirects to the albums list' do
-      delete :destroy, {id: album, profile_name: album.user}, valid_session
+      delete :destroy, params: {id: album, profile_name: album.user}, session: valid_session
       expect(response).to redirect_to(albums_url)
     end
 
     it 'creates an activity' do
       expect {
-        delete :destroy, {id: album, profile_name: album.user}, valid_session
+        delete :destroy, params: {id: album, profile_name: album.user}, session: valid_session
       }.to change(Activity, :count).by(1)
     end
   end

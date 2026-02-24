@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:9.6
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  web:
+    build: .
+    command: sh -c "unset BUNDLER_VERSION && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres@db:5432/treebook_development
+      RAILS_ENV: development
+      DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
+      SECRET_KEY_BASE: 94272cb2783ce68882bcfada97c379e17c90ef3d965a1d319ed5a158b49445a1d5e81ea24163d9d30b465489efee670b3acd1cba0c45102fc52f210f85778be0
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 1G
+
+volumes:
+  postgres_data:

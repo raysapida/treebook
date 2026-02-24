@@ -9,7 +9,7 @@
 <% @pictures.each do |picture| %>
 	<div class="col-xs-6 col-md-3">
 		<div class="thumbnail">
-			<%= link_to image_tag(picture.asset.url(:small)), album_picture_path(@user, @album, picture) %><br />
+			<%= link_to image_tag(picture.asset.variant(:small)), album_picture_path(@user, @album, picture) %><br />
 			<div class="caption">
 				<% if picture.caption? %><%= picture.caption %><br /><% end %>
 				<%= link_to "View full size", album_picture_path(@user, @album, picture) %>

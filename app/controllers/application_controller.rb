@@ -13,18 +13,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    #devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :profile_name, :email, :password, :password_confirmation) }
     registration_params = [:first_name, :last_name, :profile_name, :email, :password, :password_confirmation, :avatar]
-
-    if params[:action] == 'update'
-      devise_parameter_sanitizer.for(:account_update) {
-        |u| u.permit(registration_params << :current_password)
-      }
-    elsif params[:action] == 'create'
-      devise_parameter_sanitizer.for(:sign_up) {
-        |u| u.permit(registration_params)
-      }
-    end
+    devise_parameter_sanitizer.permit(:sign_up, keys: registration_params)
+    devise_parameter_sanitizer.permit(:account_update, keys: registration_params + [:current_password])
   end
 
   def render_404

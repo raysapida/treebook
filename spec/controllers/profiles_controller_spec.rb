@@ -5,14 +5,14 @@ describe ProfilesController do
 
   describe 'GET show' do
     it 'success with signed in user' do
-      sign_in :user, user
-      get :show, id: user.profile_name
+      sign_in user, scope: :user
+      get :show, params: { id: user.profile_name }
 
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it 'should render a 404 on profile not found' do
-      get :show, id: "doesn't exist"
+      get :show, params: { id: "doesn't exist" }
 
       expect(response).to have_http_status(404)
     end
@@ -20,8 +20,8 @@ describe ProfilesController do
     it 'that variables are assigned on successful profile viewing' do
       other = create(:user)
 
-      sign_in :user, user
-      get :show, id: other.profile_name
+      sign_in user, scope: :user
+      get :show, params: { id: other.profile_name }
 
       expect(assigns(:user)).to eq(other)
     end
@@ -32,8 +32,8 @@ describe ProfilesController do
       create(:status, user: other)
       create(:status, user: other)
 
-      sign_in :user, user
-      get :show, id: other.profile_name
+      sign_in user, scope: :user
+      get :show, params: { id: other.profile_name }
 
       assigns(:statuses).each do |status|
         expect(status.user).to eq(other)

@@ -1,0 +1,8 @@
+.git
+.bundle
+log/*
+tmp/*
+public/assets
+public/system
+node_modules
+.DS_Store
