@@ -19,6 +19,7 @@ services:
       DATABASE_URL: postgresql://postgres@db:5432/treebook_development
       RAILS_ENV: development
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: 'true'
+      SECRET_KEY_BASE: 94272cb2783ce68882bcfada97c379e17c90ef3d965a1d319ed5a158b49445a1d5e81ea24163d9d30b465489efee670b3acd1cba0c45102fc52f210f85778be0
     deploy:
       resources:
         limits:

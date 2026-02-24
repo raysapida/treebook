@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 ruby "2.7.8"
 
-gem 'rails', '~> 7.0.0'
+gem 'rails', '~> 7.1.0'
 gem 'sass-rails', '~> 6.0'
 gem 'terser'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.11'
+gem 'jbuilder', '~> 2.13.0'
 gem 'pg', '~> 1.5'
 gem 'puma', '~> 5.0'
 
@@ -38,7 +38,7 @@ gem 'omniauth-google-oauth2', '~> 0.5'
 gem 'google-api-client', '~> 0.11', require: 'google/apis/identitytoolkit_v3'
 gem 'bootstrap-social-rails', '~> 4.12'
 gem 'faker', '~> 2.23'
-gem 'activeadmin', '~> 2.14'
+gem 'activeadmin', '~> 3.0'
 gem 'loofah', '~> 2.19'
 gem 'tilt'
 gem 'logger'
