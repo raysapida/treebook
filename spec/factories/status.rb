@@ -1,9 +1,9 @@
 require 'faker'
 
-FactoryGirl.define do
-  factory :status do |f|
+FactoryBot.define do
+  factory :status do 
     association :user, factory: :user
 
-    f.content { Faker::Lorem.sentence }
+    content { Faker::Lorem.sentence }
   end
 end

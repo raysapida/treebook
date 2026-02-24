@@ -93,7 +93,7 @@ class PicturesController < ApplicationController
   end
 
   def find_user
-    @user = User.find_by_profile_name(params[:profile_name])
+    @user = User.find_by(profile_name: params[:profile_name])
   end
 
   def find_album

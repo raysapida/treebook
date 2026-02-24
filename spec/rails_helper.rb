@@ -8,7 +8,7 @@ require 'paperclip/matchers'
 require 'capybara/rails'
 require 'formulaic'
 require 'database_cleaner/active_record'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'rails-controller-testing'
 
 Shoulda::Matchers.configure do |config|
@@ -40,7 +40,7 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Paperclip::Shoulda::Matchers
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Rails::Controller::Testing::TestProcess, type: :controller

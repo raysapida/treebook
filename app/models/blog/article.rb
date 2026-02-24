@@ -67,7 +67,7 @@ class Blog::Article
   end
 
   def self.yaml_frontmatter_metadata_from(file)
-    YAML.load_file(file)
+    YAML.safe_load_file(file, permitted_classes: [Date])
   end
 
   def remove_yaml_frontmatter_from(text)

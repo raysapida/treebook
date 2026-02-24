@@ -54,7 +54,7 @@ class UserFriendship < ApplicationRecord
   def accept_mutual_friendship!
     # Grab the mutual friendship and update the state without using
     # the state machine so as not to invoke callbacks.
-    mutual_friendship.update_attribute(:state, 'accepted')
+    mutual_friendship.update_column(:state, 'accepted')
   end
 
   def delete_mutual_friendship!
@@ -62,6 +62,6 @@ class UserFriendship < ApplicationRecord
   end
 
   def block_mutual_friendship!
-    mutual_friendship.update_attribute(:state, 'blocked') if mutual_friendship
+    mutual_friendship.update_column(:state, 'blocked') if mutual_friendship
   end
 end

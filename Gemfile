@@ -4,7 +4,6 @@ ruby "2.7.8"
 gem 'rails', '6.0.6.1'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 5.0'
 gem 'jquery-rails', '~> 4.3.3'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.10.0'
@@ -70,7 +69,7 @@ end
 group :development, :test do
   gem 'pry-byebug', '~> 3.4'
   gem 'dotenv-rails', '~> 2.0.0'
-  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'factory_bot_rails', '~> 6.2'
   gem 'rspec-rails', '~> 4.0'
   gem 'bullet', '~> 6.1'
 end
