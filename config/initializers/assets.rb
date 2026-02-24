@@ -12,3 +12,17 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# Sprockets 4 does not support Regexp entries in precompile. bootstrap-sass 3.x
+# registers glyphicon fonts via a Regexp, which raises NoMethodError in Sprockets 4.
+# Replace the Regexp with explicit String paths.
+Rails.application.config.after_initialize do
+  Rails.application.config.assets.precompile.delete_if { |p| p.is_a?(Regexp) }
+  Rails.application.config.assets.precompile += %w[
+    bootstrap/glyphicons-halflings-regular.eot
+    bootstrap/glyphicons-halflings-regular.svg
+    bootstrap/glyphicons-halflings-regular.ttf
+    bootstrap/glyphicons-halflings-regular.woff
+    bootstrap/glyphicons-halflings-regular.woff2
+  ]
+end
